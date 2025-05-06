@@ -6,7 +6,7 @@
 /*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 15:11:46 by amonot            #+#    #+#             */
-/*   Updated: 2025/05/06 20:26:16 by amonot           ###   ########.fr       */
+/*   Updated: 2025/05/06 20:37:13 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,7 +222,7 @@ int check_live(t_vm *vm, t_champion champion)
 
 int check(t_vm *vm, t_champion champion)
 {
-	if (vm->last_check + vm->cycle_to_die == vm->cycle)
+	if (vm->last_check + vm->cycle_to_die < vm->cycle)
 	{
 		vm->last_check = vm->cycle; // ???
 		if (check_live(vm, champion))
@@ -271,15 +271,16 @@ void exec_process(t_champion champion, t_process *process, unsigned char mem[MEM
 			process = process->next;
 		}
 		process = vm.last_born;
+		
 		vm.cycle++;
 
 		if (check(&vm, champion))
 			break;
-		printf("cycle: %ld\n", vm.cycle);
-
+		
 /* 		if (vm.cycle == 10)
 			break ; */
 	}
+	printf("cycle: %ld\n", vm.cycle);
 	if (vm.winner != -42)
 		printf("the winner is : %d\n", vm.winner);
 	else
