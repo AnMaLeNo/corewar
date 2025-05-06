@@ -6,7 +6,7 @@
 /*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 15:11:26 by amonot            #+#    #+#             */
-/*   Updated: 2025/05/05 17:11:32 by amonot           ###   ########.fr       */
+/*   Updated: 2025/05/06 19:44:04 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,10 @@ int main(int argc, char *argv[])
 	unsigned char 		mem[MEM_SIZE];
 	t_champion			champion;
 
+	ft_bzero(&champion, sizeof(t_champion));
 	ft_bzero(mem, MEM_SIZE);
 	set_champions_num(champion.ids);
+	//ft_bzero(champion.live, sizeof(unsigned int) * MAX_PLAYERS);
 	champion.nbr = get_champion(argc, argv, champion.header, mem);
 	if (champion.nbr == -1)
 		perror("get_champion");

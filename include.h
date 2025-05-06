@@ -6,7 +6,7 @@
 /*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 16:36:40 by amonot            #+#    #+#             */
-/*   Updated: 2025/05/05 19:52:53 by amonot           ###   ########.fr       */
+/*   Updated: 2025/05/06 19:15:01 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 #include <stdbool.h>
 #include <fcntl.h>
 #include "op.h"
+
+#define MAX_PARAMS 4 
 
 typedef struct s_process
 {
@@ -35,7 +37,19 @@ typedef struct s_champion
 	int			nbr;
 	t_header	header[MAX_PLAYERS];
 	int			ids[MAX_PLAYERS];
+	size_t		live[MAX_PLAYERS];
 }				t_champion;
+
+typedef struct s_vm
+{
+	size_t			cycle;
+	size_t			last_check;
+	t_process		*last_born;
+	unsigned int	cycle_to_die;
+	unsigned int	nb_live;
+	int				nb_check;
+	int				winner;
+}					t_vm;
 
 int get_header(int fd, t_header	*champion);
 int get_champion(int argc, char *argv[], t_header champion[MAX_PLAYERS], unsigned char mem[MEM_SIZE]);
