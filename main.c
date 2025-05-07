@@ -6,7 +6,7 @@
 /*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 15:11:26 by amonot            #+#    #+#             */
-/*   Updated: 2025/05/06 19:44:04 by amonot           ###   ########.fr       */
+/*   Updated: 2025/05/07 15:47:17 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,12 @@ void dump_mem(unsigned char mem[MEM_SIZE])
 	i = 0;
 	while (i < MEM_SIZE)
 	{
-		printf("%X ", mem[i]);
+		printf("%X\t", mem[i]);
 		i++;
+		if (i % (16 * 3) == 0)
+			break;
+		if (i % 16 == 0)
+			printf("\n");
 	}
 	printf("\n");
 }
@@ -71,5 +75,6 @@ int main(int argc, char *argv[])
 		printf("Nombre de champion: %d\n", champion.nbr);
 		dump_mem(mem);
 		creat_process(champion, mem);
+		dump_mem(mem);
 	}
 }

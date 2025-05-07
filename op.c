@@ -6,7 +6,7 @@
 /*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2025/05/03 18:03:37 by amonot           ###   ########.fr       */
+/*   Updated: 2025/05/07 15:40:01 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_op    op_tab[17] =
 	{"", 0, 0, 0, 0, 0, 0, {0}},
 	{"live", 1, 1, 10, "alive", 0, 0, {PARAM_DIRECT}},
 	{"ld", 2, 2, 5, "load", 1, 0, {PARAM_DIRECT | PARAM_INDIRECT, PARAM_REGISTER}},
-	{"st", 2, 3, 5, "store",1, 0, {PARAM_REGISTER, PARAM_INDIRECT | PARAM_REGISTER}} ,
+	{"st", 2, 3, 5, "store",1, 0, {PARAM_REGISTER, PARAM_INDIRECT | PARAM_REGISTER}} , // 2
 	{"add", 3, 4, 10, "addition", 1, 0, {PARAM_REGISTER, PARAM_REGISTER, PARAM_REGISTER}},
 	{"sub", 3, 5, 10, "soustraction", 1, 0, {PARAM_REGISTER, PARAM_REGISTER, PARAM_REGISTER}},
 	{"and", 3, 6, 6, "et (and  r1, r2, r3   r1&r2 -> r3", 1, 0, {PARAM_REGISTER | PARAM_DIRECT | PARAM_INDIRECT, PARAM_REGISTER | PARAM_INDIRECT | PARAM_DIRECT, PARAM_REGISTER}},

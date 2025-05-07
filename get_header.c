@@ -6,7 +6,7 @@
 /*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 16:36:08 by amonot            #+#    #+#             */
-/*   Updated: 2025/05/04 20:10:16 by amonot           ###   ########.fr       */
+/*   Updated: 2025/05/07 15:43:59 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,10 +93,10 @@ int get_header(int fd, t_header	*champion)
 		return (-100);
 	}
 
-	printf("magic: %x\n", champion->magic);
-	printf("name: %s\n", champion->prog_name);
-	printf("prog_size: %d\n", champion->prog_size);
-	printf("comment: %s\n", champion->comment);
-	printf("----------------------------------------\n\n");
+	// printf("magic: %x\n", champion->magic);
+	// printf("name: %s\n", champion->prog_name);
+	// printf("prog_size: %d\n", champion->prog_size);
+	// printf("comment: %s\n", champion->comment);
+	// printf("----------------------------------------\n\n");
 	return (0);
 }

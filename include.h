@@ -6,7 +6,7 @@
 /*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 16:36:40 by amonot            #+#    #+#             */
-/*   Updated: 2025/05/06 19:15:01 by amonot           ###   ########.fr       */
+/*   Updated: 2025/05/07 15:54:41 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,12 @@ int get_header(int fd, t_header	*champion);
 int get_champion(int argc, char *argv[], t_header champion[MAX_PLAYERS], unsigned char mem[MEM_SIZE]);
 void creat_process(t_champion champion, unsigned char mem[MEM_SIZE]);
 void exec_process(t_champion champion, t_process *process, unsigned char mem[MEM_SIZE]);
+int check(t_vm *vm, t_champion champion);
+int exec_instruction(unsigned char mem[MEM_SIZE], size_t *pc, int *cycle);
+int get_param(unsigned char mem[MEM_SIZE], size_t pc, t_op op, unsigned int params[MAX_PARAMS]);
+
+// instruction
+int live(unsigned char mem[MEM_SIZE], size_t *pc);
 
 // utile
 void	ft_bzero(void *s, size_t n);
