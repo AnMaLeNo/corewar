@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amonot <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 14:27:29 by amonot            #+#    #+#             */
-/*   Updated: 2025/05/07 14:27:46 by amonot           ###   ########.fr       */
+/*   Updated: 2025/05/08 22:37:18 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int check_winner(t_vm *vm, t_champion champion)
 	p = 0;
 	while (i < champion.nbr)
 	{
-		printf("champion.ids[i]: %d\tchampion.live[i]: %ld\n", champion.ids[i], champion.live[i]);
+		//printf("champion.ids[i]: %d\tchampion.live[i]: %ld\n", champion.ids[i], champion.live[i]);
 		if (champion.ids[i] != -1 && champion.live[i] != 0)
 		{
 			num = champion.ids[i];
@@ -52,7 +52,7 @@ int check_live(t_vm *vm, t_champion champion)
 	{
 		if (check_winner(vm, champion))
 			return (1);
-		if (vm->cycle - champion.live[i] >= vm->cycle_to_die)
+		if (vm->cycle - champion.live[i] >= (size_t)vm->cycle_to_die)
 		{
 			if (champion.ids[i] >= 0)
 			{
@@ -76,13 +76,16 @@ int check(t_vm *vm, t_champion champion)
 		if (vm->nb_live >= NBR_LIVE)
 		{
 			vm->cycle_to_die -= CYCLE_DELTA;
-			vm->nb_check = 0;	
+			vm->nb_check = 0;
+			vm->nb_live = 0;
 		}
 		else if (vm->nb_check == MAX_CHECKS)
 		{
 			vm->cycle_to_die -= CYCLE_DELTA;
 			vm->nb_check = 0;
 		}
+		if (vm->cycle_to_die < 0)
+			vm->cycle_to_die = 0;
 	}
 	return (0);
 }

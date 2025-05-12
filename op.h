@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
+/*   By: amonot <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2014/01/08 16:13:20 by zaz              ###   ########.fr       */
+/*   Updated: 2025/05/08 22:06:08 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@
 #define REG_NUMBER				16
 
 #define CYCLE_TO_DIE			1536
-#define CYCLE_DELTA				50
-#define NBR_LIVE				21
-#define MAX_CHECKS				10
+#define CYCLE_DELTA				50 // 50 4
+#define NBR_LIVE				21 // 21 2046
+#define MAX_CHECKS				10 // 10 ???
 
 /*
 **

@@ -3,27 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   get_param.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amonot <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 15:54:11 by amonot            #+#    #+#             */
-/*   Updated: 2025/05/07 15:54:32 by amonot           ###   ########.fr       */
+/*   Updated: 2025/05/09 16:38:45 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include.h"
 
-int param_size(t_op op, unsigned char acb, int n)
+int param_size(t_op op, unsigned char acb, int n, int *type)
 {
-	int 			param;
-
 	if (op.has_pcode)
 	{
-		param = (acb & 0b11000000 >> 2 * n) >> (6 - n * 2);
-		if (param == REG_CODE)
+		*type = (acb & 0b11000000 >> 2 * n) >> (6 - n * 2);
+		if (*type == REG_CODE)
 			return (PARAM_REGISTER);
-		else if (param == DIR_CODE)
+		else if (*type == DIR_CODE)
 			return (PARAM_DIRECT / (1 + op.has_idx));
-		else if (param == IND_CODE)
+		else if (*type == IND_CODE)
 			return (PARAM_INDIRECT);
 		return (PARAM_UNKNOWN);
 	}
@@ -36,11 +34,12 @@ int param_size(t_op op, unsigned char acb, int n)
 	}
 }
 
-int get_param(unsigned char mem[MEM_SIZE], size_t pc, t_op op, unsigned int params[MAX_PARAMS])
+int get_param(unsigned char mem[MEM_SIZE], size_t pc, t_op op, t_params *params)
 {
 	unsigned char	acb;
 	int				size;
 	int				i;
+	int				p_size;
 
 	i = 0;
 	size = 0;
@@ -49,9 +48,10 @@ int get_param(unsigned char mem[MEM_SIZE], size_t pc, t_op op, unsigned int para
 		size++;
 	while (i < op.nb_params)
 	{
-		printf("param: %d, size: %d\n", i + 1, param_size(op, acb, i));
-		rv_memcpy(&params[i], &mem[(pc + size) % MEM_SIZE], param_size(op, acb, i));
-		size += param_size(op, acb, i);
+		p_size = param_size(op, acb, i, &params->types[i]);
+		//printf("param: %d, size: %d\n", i + 1, p_size);
+		rv_memcpy(&params->tab[i], &mem[(pc + size) % MEM_SIZE], p_size);
+		size += p_size;
 		i++;
 	}
 	return (size);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utility.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amonot <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 19:36:27 by amonot            #+#    #+#             */
-/*   Updated: 2025/05/05 19:53:02 by amonot           ###   ########.fr       */
+/*   Updated: 2025/05/07 23:07:49 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,19 @@ void * rv_memcpy(void *destination, const void *source, size_t size)
 		((char *)destination)[i] = ((const char *)source)[j];
 		i++;
 		j--;
+	}
+	return (destination);
+}
+
+void * ft_memcpy(void *destination, const void *source, size_t size)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < size)
+	{
+		((char *)destination)[i] = ((const char *)source)[i];
+		i++;
 	}
 	return (destination);
 }

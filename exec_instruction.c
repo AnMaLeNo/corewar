@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_instruction.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amonot <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 15:50:30 by amonot            #+#    #+#             */
-/*   Updated: 2025/05/07 15:55:50 by amonot           ###   ########.fr       */
+/*   Updated: 2025/05/11 03:12:14 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,31 @@ t_op *get_instruction(int opcode, int cycle)
 	return (&op_tab[0]);
 }
 
-int exec_instruction(unsigned char mem[MEM_SIZE], size_t *pc, int *cycle)
+int exec_instruction(unsigned char mem[MEM_SIZE], t_process *process)
 {
 	t_op	*op;
 	int		r;
 
-	r = -1;
-	op = get_instruction(mem[*pc % MEM_SIZE], *cycle);
+	r = -2;
+	op = get_instruction(mem[process->pc % MEM_SIZE], process->cycle);
 	if (op == NULL)
 		return (-1);
 	if (ft_strcmp(op->name, "") == 0)
-		r = -2;
+		process->pc++;
 	else if (ft_strcmp(op->name, "live") == 0)
-		r = live(mem, pc);
+		r = live(mem, &process->pc);
+	else if (ft_strcmp(op->name, "ld") == 0)
+		ld(mem, process, *op);
+	else if (ft_strcmp(op->name, "st") == 0)
+		st(mem, process, *op);
+	else if (ft_strcmp(op->name, "add") == 0)
+		add(mem, process, *op);
+	else if (ft_strcmp(op->name, "zjmp") == 0)
+		zjmp(mem, process, *op);
 	else
+	{
 		printf("instruction: %s pas fait\n", op->name);
-	*cycle = 0;
+	}
+	process->cycle = 0;
 	return (r);
 }

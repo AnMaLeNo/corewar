@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amonot <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 15:11:46 by amonot            #+#    #+#             */
-/*   Updated: 2025/05/07 15:54:19 by amonot           ###   ########.fr       */
+/*   Updated: 2025/05/09 15:14:10 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,21 +49,23 @@ void exec_process(t_champion champion, t_process *process, unsigned char mem[MEM
 		while (process)
 		{
 			process->cycle++;
-			exec = exec_instruction(mem, &process->pc, &process->cycle);
+			exec = exec_instruction(mem, process);
 			if (exec >= 0)
+			{
 				report_live(&champion, exec, vm.cycle + 1);
-			else
-				printf("exec: %d\n", exec);
+				vm.nb_live++;
+			}
 			process = process->next;
 		}
 		process = vm.last_born;
-		
 		vm.cycle++;
-
+		
+		debug(mem, vm, process);
+		
 		if (check(&vm, champion))
 			break;
 		
-/* 		if (vm.cycle == 11)
+/* 		if (vm.cycle == 35)
 			break ; */
 	}
 	printf("cycle: %ld\n", vm.cycle);

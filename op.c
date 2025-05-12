@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amonot <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2025/05/07 15:40:01 by amonot           ###   ########.fr       */
+/*   Updated: 2025/05/11 02:50:48 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,17 @@
 t_op    op_tab[17] =
 {
 	{"", 0, 0, 0, 0, 0, 0, {0}},
-	{"live", 1, 1, 10, "alive", 0, 0, {PARAM_DIRECT}},
+	{"live", 1, 1, 10, "alive", 0, 0, {PARAM_DIRECT}}, // 10 5
 	{"ld", 2, 2, 5, "load", 1, 0, {PARAM_DIRECT | PARAM_INDIRECT, PARAM_REGISTER}},
-	{"st", 2, 3, 5, "store",1, 0, {PARAM_REGISTER, PARAM_INDIRECT | PARAM_REGISTER}} , // 2
+	{"st", 2, 3, 5, "store",1, 0, {PARAM_REGISTER, PARAM_INDIRECT | PARAM_REGISTER}} , // 5 2
+	
 	{"add", 3, 4, 10, "addition", 1, 0, {PARAM_REGISTER, PARAM_REGISTER, PARAM_REGISTER}},
+	
 	{"sub", 3, 5, 10, "soustraction", 1, 0, {PARAM_REGISTER, PARAM_REGISTER, PARAM_REGISTER}},
 	{"and", 3, 6, 6, "et (and  r1, r2, r3   r1&r2 -> r3", 1, 0, {PARAM_REGISTER | PARAM_DIRECT | PARAM_INDIRECT, PARAM_REGISTER | PARAM_INDIRECT | PARAM_DIRECT, PARAM_REGISTER}},
 	{"or", 3, 7, 6, "ou  (or   r1, r2, r3   r1 | r2 -> r3", 1, 0, {PARAM_REGISTER | PARAM_INDIRECT | PARAM_DIRECT, PARAM_REGISTER | PARAM_INDIRECT | PARAM_DIRECT, PARAM_REGISTER}},
 	{"xor", 3, 8, 6, "ou (xor  r1, r2, r3   r1^r2 -> r3", 1, 0, {PARAM_REGISTER | PARAM_INDIRECT | PARAM_DIRECT, PARAM_REGISTER | PARAM_INDIRECT | PARAM_DIRECT, PARAM_REGISTER}},
-	{"zjmp", 1, 9, 20, "jump if zero", 0, 1, {PARAM_DIRECT}},
+	{"zjmp", 1, 9, 20, "jump if zero", 0, 1, {PARAM_DIRECT}}, // 20 10
 	{"ldi", 3, 10, 25, "load index", 1, 1, {PARAM_REGISTER | PARAM_DIRECT | PARAM_INDIRECT, PARAM_DIRECT | PARAM_REGISTER, PARAM_REGISTER}},
 	{"sti", 3, 11, 25, "store index", 1, 1, {PARAM_REGISTER, PARAM_REGISTER | PARAM_DIRECT | PARAM_INDIRECT, PARAM_DIRECT | PARAM_REGISTER}},
 	{"fork", 1, 12, 800, "fork", 0, 1, {PARAM_DIRECT}},
