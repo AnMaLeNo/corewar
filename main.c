@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amonot <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 15:11:26 by amonot            #+#    #+#             */
-/*   Updated: 2025/05/09 14:56:22 by amonot           ###   ########.fr       */
+/*   Updated: 2025/10/17 16:44:57 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ int main(int argc, char *argv[])
 
 	ft_bzero(&champion, sizeof(t_champion));
 	ft_bzero(mem, MEM_SIZE);
-	set_champions_num(champion.ids);
-	//ft_bzero(champion.live, sizeof(unsigned int) * MAX_PLAYERS);
+	set_champions_num(champion.ids); // mes des numero pour tout les place de champion disponible
+	//ft_bzero(champion.live, sizeof(unsigned int) * MAX_PLAYERS); // ?? (pour quoi est ce qu'il est commanter)
 	champion.nbr = get_champion(argc, argv, champion.header, mem);
 	if (champion.nbr == -1)
 		perror("get_champion");
@@ -73,8 +73,8 @@ int main(int argc, char *argv[])
 	else if (champion.nbr >= 0)
 	{
 		printf("Nombre de champion: %d\n", champion.nbr);
-		dump_mem(mem);
+		//dump_mem(mem);
 		creat_process(champion, mem);
-		dump_mem(mem);
+		//dump_mem(mem);
 	}
 }

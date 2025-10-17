@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   include.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amonot <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 16:36:40 by amonot            #+#    #+#             */
-/*   Updated: 2025/05/11 03:11:44 by amonot           ###   ########.fr       */
+/*   Updated: 2025/10/17 16:30:37 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,19 @@
 
 typedef struct s_process
 {
-	char				reg[REG_NUMBER][REG_SIZE];
-	size_t				pc;
-	bool				carry;
-	int					cycle;
+	char				reg[REG_NUMBER][REG_SIZE]; // reg c'est les registre
+	size_t				pc; // l’adresse du prochain ensemble d’instructions à exécuter
+	bool				carry; // un flage que certaine opérations peuvent modifier
+	int					cycle; // ?? (nombre de cyle a attendre avant d'executer la prochenne instruction)
 	struct s_process	*next;
 }						t_process;
 
 typedef struct s_champion
 {
-	int			nbr;
-	t_header	header[MAX_PLAYERS];
-	int			ids[MAX_PLAYERS];
-	size_t		live[MAX_PLAYERS];
+	int			nbr; // nombre de champion
+	t_header	header[MAX_PLAYERS]; // ?? (les champion)
+	int			ids[MAX_PLAYERS]; // ?? (les id des champion)
+	size_t		live[MAX_PLAYERS]; 
 }				t_champion;
 
 typedef struct s_vm
@@ -45,9 +45,9 @@ typedef struct s_vm
 	size_t			cycle;
 	size_t			last_check;
 	t_process		*last_born;
-	int				cycle_to_die;
-	unsigned int	nb_live;
-	int				nb_check;
+	int				cycle_to_die; // 1 cycle = 1 tick de la vm 
+	unsigned int	nb_live; // nombre total d’instructions live exécutées toutes confondues
+	int				nb_check; // nombre de "cycle_to_die" survecue sans que personne meur
 	int				winner;
 }					t_vm;
 

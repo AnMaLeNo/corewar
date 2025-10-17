@@ -23,8 +23,12 @@
 #        zjmp %:start
 
 
-ld %5, r1
-ld %-5, r2
-add r1, r2, r3
-start:  live %42
-        zjmp %:start
+#ld %5, r1
+#ld %-5, r2
+# add r1, r2, r3
+#start:  live %42
+#        zjmp %:start
+
+live %0
+live %1
+live %2

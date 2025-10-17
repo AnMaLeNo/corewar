@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_param.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amonot <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 15:54:11 by amonot            #+#    #+#             */
-/*   Updated: 2025/05/09 16:38:45 by amonot           ###   ########.fr       */
+/*   Updated: 2025/10/16 17:31:49 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int get_param(unsigned char mem[MEM_SIZE], size_t pc, t_op op, t_params *params)
 
 	i = 0;
 	size = 0;
-	acb = mem[(pc + size) % MEM_SIZE];
+	acb = mem[(pc + size) % MEM_SIZE]; // pc est = a pc + 1 en realiter
 	if (op.has_pcode)
 		size++;
 	while (i < op.nb_params)
