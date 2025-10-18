@@ -1,0 +1,4 @@
+corewar
+/obj
+*.o
+*.d
