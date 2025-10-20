@@ -6,7 +6,7 @@
 /*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 16:36:08 by amonot            #+#    #+#             */
-/*   Updated: 2025/05/07 15:43:59 by amonot           ###   ########.fr       */
+/*   Updated: 2025/10/20 17:12:27 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ int get_int(int fd, unsigned int *nbr)
 	r = 1;
 	*nbr = 0;
 	buf = 0;
-	while (i < 4 && r == 1)
+	while (i < 4 && r == 1) // pas sur que (r ==1) sert a quel que chose
 	{
-		r = read(fd, &buf, 1); // fair dans l'otre sans pour read 
+		r = read(fd, &buf, 1); // fair dans l'autre sans pour read 
 		if (r == -1)
 			return (-1);
 		*nbr = *nbr << 8;
@@ -52,7 +52,7 @@ int get_str(int fd, char *str, unsigned int size)
 		if (buf == 0)
 			break;
 	}
-	while (i < size + 4 && r == 1)
+	while (i < size + 4 && r == 1) // Pour le Séparateur nul de 4 octets à 0x00
 	{
 		r = read(fd, &buf, 1);
 		i++;

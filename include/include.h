@@ -6,7 +6,7 @@
 /*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 16:36:40 by amonot            #+#    #+#             */
-/*   Updated: 2025/10/17 16:30:37 by amonot           ###   ########.fr       */
+/*   Updated: 2025/10/20 17:00:14 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ typedef struct s_process
 typedef struct s_champion
 {
 	int			nbr; // nombre de champion
-	t_header	header[MAX_PLAYERS]; // ?? (les champion)
-	int			ids[MAX_PLAYERS]; // ?? (les id des champion)
+	t_header	header[MAX_PLAYERS]; // le header des champion
+	int			ids[MAX_PLAYERS]; // les id/num des champion
 	size_t		live[MAX_PLAYERS]; 
 }				t_champion;
 

@@ -6,7 +6,7 @@
 /*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 15:11:26 by amonot            #+#    #+#             */
-/*   Updated: 2025/10/17 16:44:57 by amonot           ###   ########.fr       */
+/*   Updated: 2025/10/20 17:25:41 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int main(int argc, char *argv[])
 	else if (champion.nbr == -2)
 		write(2, "Too many players\n", 17);
 	else if (champion.nbr == -3)
-		write(2, "prog_size not the same\n", 17);
+		write(2, "prog_size not the same\n", 23);
 	else if (champion.nbr >= 0)
 	{
 		printf("Nombre de champion: %d\n", champion.nbr);

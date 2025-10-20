@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amonot <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 20:45:07 by amonot            #+#    #+#             */
-/*   Updated: 2025/05/07 23:34:03 by amonot           ###   ########.fr       */
+/*   Updated: 2025/10/20 17:51:53 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_process *new_process(int num, unsigned long int pc) // bzero sur reg ???
 	{
 		j = 0;
 		while (j < REG_SIZE)
-			process->reg[i][j++] = 0;
+			process->reg[i][j++] = 0; // bzero ?
 		i++;
 	}
 	rv_memcpy(&process->reg[0], &num, 4);
@@ -36,13 +36,13 @@ t_process *new_process(int num, unsigned long int pc) // bzero sur reg ???
 	return (process);
 }
 
-void inset_process(t_process *process, t_process *new)
+void inset_process(t_process *process, t_process *new) // insert "new" after "process"
 {
 	new->next = process->next;
 	process->next = new;
 }
 
-void free_process(t_process *process)
+void free_process(t_process *process) // ne marche pas !
 {
 	t_process	*tmp;
 

@@ -2,3 +2,4 @@ corewar
 /obj
 *.o
 *.d
+#/vm_champs

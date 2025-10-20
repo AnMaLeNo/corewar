@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   creat_process.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amonot <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 20:45:07 by amonot            #+#    #+#             */
-/*   Updated: 2025/05/07 22:22:10 by amonot           ###   ########.fr       */
+/*   Updated: 2025/10/20 17:55:32 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,17 @@ void creat_process(t_champion champion, unsigned char mem[MEM_SIZE])
 		process = last_born;
 		p++;
 	}
-	p = 0;
-	while (p < champion.nbr)
-	{
-		int r;
 
-		rv_memcpy(&r, &process->reg[0], 4);
-		printf("process r1: %d\n", r);
-		process = process->next;
-		p++;
-	}
+	// p = 0;
+	// while (p < champion.nbr)
+	// {
+	// 	int r;
+
+	// 	rv_memcpy(&r, &process->reg[0], 4);
+	// 	printf("process r1: %d\n", r);
+	// 	process = process->next;
+	// 	p++;
+	// }
 	exec_process(champion, last_born, mem);
-	free_process(last_born);
+	free_process(last_born); // ne marche pas
 }

@@ -6,7 +6,7 @@
 /*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 19:36:01 by amonot            #+#    #+#             */
-/*   Updated: 2025/05/04 20:38:49 by amonot           ###   ########.fr       */
+/*   Updated: 2025/10/20 15:20:31 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int get_champion(int argc, char *argv[], t_header champion[MAX_PLAYERS], unsigne
 {
 	int i;
 	int p;
-	int fd[MAX_PLAYERS];
+	int fd[MAX_PLAYERS]; // close ?
 
 	i = 1;
 	p = 0;
