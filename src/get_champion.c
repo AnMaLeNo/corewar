@@ -6,7 +6,7 @@
 /*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 19:36:01 by amonot            #+#    #+#             */
-/*   Updated: 2025/10/20 15:20:31 by amonot           ###   ########.fr       */
+/*   Updated: 2025/10/22 16:44:51 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int load_champion(int *fd, unsigned char mem[MEM_SIZE], int nbr, t_header champi
 	int					r;
 
 	p = 0;
-	r = 1;
+	r = 1; // ca sert a rien
 	while (p < nbr)
 	{
 		i = p * (MEM_SIZE / nbr);
@@ -37,6 +37,7 @@ int load_champion(int *fd, unsigned char mem[MEM_SIZE], int nbr, t_header champi
 			return (-3);
 		p++;
 	}
+	//close fd ici ?
 	return (nbr);
 }
 

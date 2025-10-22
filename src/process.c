@@ -6,7 +6,7 @@
 /*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 20:45:07 by amonot            #+#    #+#             */
-/*   Updated: 2025/10/20 17:51:53 by amonot           ###   ########.fr       */
+/*   Updated: 2025/10/22 17:25:52 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void inset_process(t_process *process, t_process *new) // insert "new" after "pr
 	process->next = new;
 }
 
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 void free_process(t_process *process) // ne marche pas !
 {
 	t_process	*tmp;

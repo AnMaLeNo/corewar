@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amonot <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 14:27:29 by amonot            #+#    #+#             */
-/*   Updated: 2025/05/08 22:37:18 by amonot           ###   ########.fr       */
+/*   Updated: 2025/10/22 18:04:10 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int check(t_vm *vm, t_champion champion)
 {
 	if (vm->last_check + vm->cycle_to_die < vm->cycle)
 	{
-		vm->last_check = vm->cycle; // ???
+		vm->last_check = vm->cycle; // ??? oui ?
 		if (check_live(vm, champion))
 			return (1);
 		vm->nb_check++;

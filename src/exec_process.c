@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amonot <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 15:11:46 by amonot            #+#    #+#             */
-/*   Updated: 2025/05/09 15:14:10 by amonot           ###   ########.fr       */
+/*   Updated: 2025/10/22 18:01:07 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,11 @@ void exec_process(t_champion champion, t_process *process, unsigned char mem[MEM
 	{
 		while (process)
 		{
-			process->cycle++;
+			process->cycle++; // ici ou apret exec instruction ??
 			exec = exec_instruction(mem, process);
 			if (exec >= 0)
 			{
-				report_live(&champion, exec, vm.cycle + 1);
+				report_live(&champion, exec, vm.cycle + 1); // pour quoi vm.cycle + 1 ?
 				vm.nb_live++;
 			}
 			process = process->next;

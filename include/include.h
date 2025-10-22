@@ -6,7 +6,7 @@
 /*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 16:36:40 by amonot            #+#    #+#             */
-/*   Updated: 2025/10/20 17:00:14 by amonot           ###   ########.fr       */
+/*   Updated: 2025/10/22 18:06:24 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,15 @@ typedef struct s_champion
 	int			nbr; // nombre de champion
 	t_header	header[MAX_PLAYERS]; // le header des champion
 	int			ids[MAX_PLAYERS]; // les id/num des champion
-	size_t		live[MAX_PLAYERS]; 
+	size_t		live[MAX_PLAYERS]; // numero du cycle du dernier live
 }				t_champion;
 
 typedef struct s_vm
 {
-	size_t			cycle;
+	size_t			cycle; // 1 cycle = 1 tick de la vm 
 	size_t			last_check;
-	t_process		*last_born;
-	int				cycle_to_die; // 1 cycle = 1 tick de la vm 
+	t_process		*last_born; // liste chainee des processus
+	int				cycle_to_die; // Tous les CYCLE_TO_DIE cycles, la machine doit vérifier que chaque processus a exécuté au moins une instruction live depuis la dernière vérification
 	unsigned int	nb_live; // nombre total d’instructions live exécutées toutes confondues
 	int				nb_check; // nombre de "cycle_to_die" survecue sans que personne meur
 	int				winner;
