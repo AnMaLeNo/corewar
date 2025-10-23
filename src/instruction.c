@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instruction.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amonot <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 15:52:18 by amonot            #+#    #+#             */
-/*   Updated: 2025/05/11 03:10:57 by amonot           ###   ########.fr       */
+/*   Updated: 2025/10/23 17:59:03 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int live(unsigned char mem[MEM_SIZE], size_t *pc)
 	int	param;
 
 	param = 0;
-	rv_memcpy(&param, &mem[*pc + 1 % MEM_SIZE], 4);
+	rv_memcpy(&param, &mem[(*pc + 1) % MEM_SIZE], 4);
 	*pc += 5;
 	return (param);
 }
@@ -79,7 +79,7 @@ void ld(unsigned char mem[MEM_SIZE], t_process *process, t_op op)
 		ft_memcpy(&process->reg[params.tab[1] - 1], &(params.tab[0]), 4);
 	else
 		ft_memcpy(&process->reg[params.tab[1] - 1], &mem[(process->pc + params.tab[0]) % MEM_SIZE], 4);
-	if (to_intl(&process->reg[params.tab[1] - 1]) == 0)
+	if (to_intl(&process->reg[params.tab[1] - 1]) == 0) // a verifier
 		process->carry = 1;
 	else
 		process->carry = 0;
