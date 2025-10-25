@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utility.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amonot <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 19:36:27 by amonot            #+#    #+#             */
-/*   Updated: 2025/05/07 23:07:49 by amonot           ###   ########.fr       */
+/*   Updated: 2025/10/25 20:06:00 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,25 @@ void * ft_memcpy(void *destination, const void *source, size_t size)
 		i++;
 	}
 	return (destination);
+}
+
+unsigned char *mem_acces(unsigned char mem[MEM_SIZE], ssize_t t)
+{
+	if (t < 0) {
+		//printf("t: %ld, res: %ld\n", t, MEM_SIZE - 1 + t % -MEM_SIZE);
+		return (&mem[MEM_SIZE + t % -MEM_SIZE]);
+	}
+	else {
+		//printf("t: %ld, res: %ld\n", t, t % MEM_SIZE);
+		return (&mem[t % MEM_SIZE]);
+	}
+}
+
+
+unsigned char *mem_get(unsigned char mem[MEM_SIZE], ssize_t t, int size) // attention a la taille de size (16 max)
+{
+	static unsigned char buffer[16];
+	for (int i = 0; i < size; i++)
+			buffer[i] = *mem_acces(mem, t + i);
+	return (buffer);
 }

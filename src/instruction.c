@@ -6,7 +6,7 @@
 /*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 15:52:18 by amonot            #+#    #+#             */
-/*   Updated: 2025/10/23 17:59:03 by amonot           ###   ########.fr       */
+/*   Updated: 2025/10/25 20:11:13 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void st(unsigned char mem[MEM_SIZE], t_process *process, t_op op)
 	if (params.types[1] == REG_CODE)
 		ft_memcpy(&process->reg[params.tab[1] - 1], &process->reg[params.tab[0] - 1], 4);
 	else
-		ft_memcpy(&mem[(process->pc + params.tab[1]) % MEM_SIZE], & process->reg[params.tab[0] - 1], 4);
+		ft_memcpy(&mem[(process->pc + params.tab[1]) % MEM_SIZE], & process->reg[params.tab[0] - 1], 4); // erreur, il faut utiliser mem_get()
 	process->pc += params_size + 1;
 }
 
@@ -78,7 +78,7 @@ void ld(unsigned char mem[MEM_SIZE], t_process *process, t_op op)
 	if (params.types[0] == DIR_CODE)
 		ft_memcpy(&process->reg[params.tab[1] - 1], &(params.tab[0]), 4);
 	else
-		ft_memcpy(&process->reg[params.tab[1] - 1], &mem[(process->pc + params.tab[0]) % MEM_SIZE], 4);
+		ft_memcpy(&process->reg[params.tab[1] - 1], mem_get(mem, process->pc + (short int)params.tab[0], 4), 4); // 4 hard coding ??
 	if (to_intl(&process->reg[params.tab[1] - 1]) == 0) // a verifier
 		process->carry = 1;
 	else

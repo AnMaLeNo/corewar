@@ -6,7 +6,7 @@
 /*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 16:36:40 by amonot            #+#    #+#             */
-/*   Updated: 2025/10/22 18:06:24 by amonot           ###   ########.fr       */
+/*   Updated: 2025/10/25 19:56:21 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,12 @@ void zjmp(unsigned char mem[MEM_SIZE], t_process *process, t_op op);
 
 
 // utile
-void	ft_bzero(void *s, size_t n);
-void	*rv_memcpy(void *destination, const void *source, size_t size);
-int		ft_strcmp(const char *first, const char *second);
-void	*rv_memcpy(void *destination, const void *source, size_t size);
-void	*ft_memcpy(void *destination, const void *source, size_t size);
+void			ft_bzero(void *s, size_t n);
+void			*rv_memcpy(void *destination, const void *source, size_t size);
+int				ft_strcmp(const char *first, const char *second);
+void			*rv_memcpy(void *destination, const void *source, size_t size);
+void			*ft_memcpy(void *destination, const void *source, size_t size);
+unsigned char	*mem_get(unsigned char mem[MEM_SIZE], ssize_t t, int size);
 
 // debug
 void debug(unsigned char mem[MEM_SIZE], t_vm vm, t_process *process);
