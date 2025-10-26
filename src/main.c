@@ -6,7 +6,7 @@
 /*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 15:11:26 by amonot            #+#    #+#             */
-/*   Updated: 2025/10/25 20:11:30 by amonot           ###   ########.fr       */
+/*   Updated: 2025/10/26 15:01:05 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,6 @@ int main(int argc, char *argv[])
 		printf("Nombre de champion: %d\n", champion.nbr);
 		//dump_mem(mem);
 		creat_process(champion, mem);
-		//dump_mem(mem);
+		dump_mem(mem);
 	}
 }

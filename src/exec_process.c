@@ -6,7 +6,7 @@
 /*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 15:11:46 by amonot            #+#    #+#             */
-/*   Updated: 2025/10/25 20:03:59 by amonot           ###   ########.fr       */
+/*   Updated: 2025/10/26 14:59:52 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void exec_process(t_champion champion, t_process *process, unsigned char mem[MEM
 		process = vm.last_born;
 		vm.cycle++;
 		
-		debug(mem, vm, process);
+		//debug(mem, vm, process);
 		
 		if (check(&vm, champion))
 			break;

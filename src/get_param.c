@@ -6,7 +6,7 @@
 /*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 15:54:11 by amonot            #+#    #+#             */
-/*   Updated: 2025/10/16 17:31:49 by amonot           ###   ########.fr       */
+/*   Updated: 2025/10/26 16:11:27 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int param_size(t_op op, unsigned char acb, int n, int *type)
 	else
 	{
 		if (op.param_types[n] == PARAM_DIRECT && op.has_idx)
-			return (PARAM_DIRECT / 2);
+			return (PARAM_DIRECT / 2); // 
 		else
 			return (op.param_types[n]);
 	}

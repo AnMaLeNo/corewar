@@ -6,7 +6,7 @@
 /*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 19:36:27 by amonot            #+#    #+#             */
-/*   Updated: 2025/10/25 20:06:00 by amonot           ###   ########.fr       */
+/*   Updated: 2025/10/26 16:19:47 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,20 +70,23 @@ void * ft_memcpy(void *destination, const void *source, size_t size)
 unsigned char *mem_acces(unsigned char mem[MEM_SIZE], ssize_t t)
 {
 	if (t < 0) {
-		//printf("t: %ld, res: %ld\n", t, MEM_SIZE - 1 + t % -MEM_SIZE);
+		printf("t: %ld, res: %ld\n", t, MEM_SIZE - 1 + t % -MEM_SIZE);
 		return (&mem[MEM_SIZE + t % -MEM_SIZE]);
 	}
 	else {
-		//printf("t: %ld, res: %ld\n", t, t % MEM_SIZE);
+		printf("t: %ld, res: %ld\n", t, t % MEM_SIZE);
 		return (&mem[t % MEM_SIZE]);
 	}
 }
 
-
-unsigned char *mem_get(unsigned char mem[MEM_SIZE], ssize_t t, int size) // attention a la taille de size (16 max)
+void mem_cpy(unsigned char mem[MEM_SIZE], ssize_t start, const void *dest, int size)
 {
-	static unsigned char buffer[16];
 	for (int i = 0; i < size; i++)
-			buffer[i] = *mem_acces(mem, t + i);
-	return (buffer);
+		((unsigned char *)dest)[i] = *mem_acces(mem, start + i);
+}
+
+void mem_set(unsigned char mem[MEM_SIZE], ssize_t start, const void *src,  int size)
+{
+	for (int i = 0; i < size; i++)
+			*mem_acces(mem, start + i) = ((const unsigned char *)src)[i];
 }
