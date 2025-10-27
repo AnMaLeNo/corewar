@@ -6,7 +6,7 @@
 /*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 16:36:40 by amonot            #+#    #+#             */
-/*   Updated: 2025/10/27 17:46:56 by amonot           ###   ########.fr       */
+/*   Updated: 2025/10/27 18:41:06 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,10 @@ typedef struct s_vm
 
 typedef struct s_params
 {
-	int	tab[MAX_PARAMS]; // int -> unsigned char
-	int	types[MAX_PARAMS];
-	int	size[MAX_PARAMS];
-}		t_params;
+	unsigned char	tab[MAX_PARAMS][DIR_SIZE]; // int -> unsigned char *
+	int			types[MAX_PARAMS];
+	int			size[MAX_PARAMS];
+}				t_params;
 
 int get_header(int fd, t_header	*champion);
 int get_champion(int argc, char *argv[], t_header champion[MAX_PLAYERS], unsigned char mem[MEM_SIZE]);
@@ -90,6 +90,10 @@ void			*endian_convert(void *data, unsigned int n);
 
 // refistries
 void reg_set(unsigned char	reg[REG_NUMBER][REG_SIZE], int r, void *dest);
+unsigned char *reg_access(unsigned char	reg[REG_NUMBER][REG_SIZE], int r);
+
+// params
+int param_val(t_params params, int n);
 
 // debug
 void debug(unsigned char mem[MEM_SIZE], t_vm vm, t_process *process);

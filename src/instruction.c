@@ -6,7 +6,7 @@
 /*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 15:52:18 by amonot            #+#    #+#             */
-/*   Updated: 2025/10/27 17:29:07 by amonot           ###   ########.fr       */
+/*   Updated: 2025/10/27 18:45:23 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,34 +22,34 @@ int live(unsigned char mem[MEM_SIZE], size_t *pc)
 	return (param);
 }
 
-void st(unsigned char mem[MEM_SIZE], t_process *process, t_op op)
-{
-	t_params	params;
-	int			params_size;
+// void st(unsigned char mem[MEM_SIZE], t_process *process, t_op op)
+// {
+// 	t_params	params;
+// 	int			params_size;
 
-	ft_bzero(&params, sizeof(t_params)); // ???
-	params_size = get_param(mem, process->pc, op, &params);
-	if (params.types[1] == REG_CODE)
-		ft_memcpy(&process->reg[params.tab[1] - 1], &process->reg[params.tab[0] - 1], 4);
-	else
-		mem_set(mem, process->pc + (short int)params.tab[1], &process->reg[params.tab[0] - 1], 4);
-	process->pc += params_size + 1;
-}
+// 	ft_bzero(&params, sizeof(t_params)); // ???
+// 	params_size = get_param(mem, process->pc, op, &params);
+// 	if (params.types[1] == REG_CODE)
+// 		ft_memcpy(&process->reg[params.tab[1] - 1], &process->reg[params.tab[0] - 1], 4);
+// 	else
+// 		mem_set(mem, process->pc + (short int)params.tab[1], &process->reg[params.tab[0] - 1], 4);
+// 	process->pc += params_size + 1;
+// }
 
-void zjmp(unsigned char mem[MEM_SIZE], t_process *process, t_op op)
-{
-	t_params	params;
-	int			params_size;
+// void zjmp(unsigned char mem[MEM_SIZE], t_process *process, t_op op)
+// {
+// 	t_params	params;
+// 	int			params_size;
 
-	ft_bzero(&params, sizeof(t_params)); // ???
-	params_size = get_param(mem, process->pc, op, &params);
+// 	ft_bzero(&params, sizeof(t_params)); // ???
+// 	params_size = get_param(mem, process->pc, op, &params);
 
-	if (process->carry == 1) // ici ou avant  ???
-		process->pc += (char)params.tab[0];
-	else
-		process->pc += params_size + 1;
-	process->pc = process->pc % MEM_SIZE;
-}
+// 	if (process->carry == 1) // ici ou avant  ???
+// 		process->pc += (char)params.tab[0];
+// 	else
+// 		process->pc += params_size + 1;
+// 	process->pc = process->pc % MEM_SIZE;
+// }
 
 char to_charl(void *big)
 {
@@ -66,37 +66,38 @@ void ld(unsigned char mem[MEM_SIZE], t_process *process, t_op op) // verifier si
 
 	ft_bzero(&params, sizeof(t_params)); // ???
 	params_size = get_param(mem, process->pc, op, &params);
-	print_params(params, 0);
+	print_params(params, 0); // check parame size 2 | OK
 	print_params(params, 1);
 
 	if (params.types[0] == DIR_CODE)
-		ft_memcpy(&process->reg[params.tab[1] - 1], &(params.tab[0]), 4); // le param est en big andien la ???!
-		//reg_set(process->reg, params.tab[1] - 1, )
+		//ft_memcpy(&process->reg[params.tab[1] - 1], &(params.tab[0]), 4); // le param est en big andien la ???!
+		reg_set(process->reg, param_val(params, 1), params.tab[0]); // pas de param_val(params, 0) car on copie juste de big ver big
 	else
-		mem_cpy(mem, process->pc + (short int)params.tab[0], process->reg[params.tab[1] - 1], 4); // (short int)params.tab[0] ??
-	if (*(int *)endian_convert(&process->reg[params.tab[1] - 1], sizeof(int)) == 0)
+		//mem_cpy(mem, process->pc + (short int)params.tab[0], process->reg[params.tab[1] - 1], 4); // (short int)params.tab[0] ??
+		mem_cpy(mem, process->pc + param_val(params, 0),  reg_access(process->reg, param_val(params, 1)), 4);
+	if (*(int *)endian_convert(reg_access(process->reg, param_val(params, 1)), sizeof(int)) == 0)
 		process->carry = 1;
 	else
 		process->carry = 0;
 	process->pc += params_size + 1;
 }
 
-void add(unsigned char mem[MEM_SIZE], t_process *process, t_op op)
-{
-	t_params	params;
-	int			params_size;
+// void add(unsigned char mem[MEM_SIZE], t_process *process, t_op op)
+// {
+// 	t_params	params;
+// 	int			params_size;
 
-	ft_bzero(&params, sizeof(t_params)); // ???
-	params_size = get_param(mem, process->pc, op, &params);
+// 	ft_bzero(&params, sizeof(t_params)); // ???
+// 	params_size = get_param(mem, process->pc, op, &params);
 
-	// verifier si les registre exsiste
-	*(int *)&process->reg[params.tab[2] - 1] = *(int *)&process->reg[params.tab[0] - 1] + *(int *)&process->reg[params.tab[1] - 1];
-	if (to_charl(&process->reg[params.tab[2] - 1]) == 0)
-		process->carry = 1;
-	else
-		process->carry = 0;
-	process->pc += params_size + 1;
-}
+// 	// verifier si les registre exsiste
+// 	*(int *)&process->reg[params.tab[2] - 1] = *(int *)&process->reg[params.tab[0] - 1] + *(int *)&process->reg[params.tab[1] - 1];
+// 	if (to_charl(&process->reg[params.tab[2] - 1]) == 0)
+// 		process->carry = 1;
+// 	else
+// 		process->carry = 0;
+// 	process->pc += params_size + 1;
+// }
 
 /* void ldi(unsigned char mem[MEM_SIZE], size_t *pc, t_op op)
 {

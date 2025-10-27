@@ -6,7 +6,7 @@
 /*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 15:08:04 by amonot            #+#    #+#             */
-/*   Updated: 2025/10/27 17:33:22 by amonot           ###   ########.fr       */
+/*   Updated: 2025/10/27 18:19:47 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void debug(unsigned char mem[MEM_SIZE], t_vm vm, t_process *process)
 
 void print_params(t_params param, int n)
 {
-	printf("param %d: tab->[%02X][%02X][%02X][%02X]->%d type->%d size->%d\n", n,
-		((unsigned char *)&param.tab[n])[0], ((unsigned char *)&param.tab[n])[1], ((unsigned char *)&param.tab[n])[2], ((unsigned char *)&param.tab[n])[3], 
-		param.tab[n], param.types[n], param.size[n]);
+	printf("param %d: tab->[%02X][%02X][%02X][%02X]->%d->%d type->%d size->%d\n", n,
+		param.tab[n][0], param.tab[n][1], param.tab[n][2], param.tab[n][3], 
+		*(int *)&param.tab[n],param_val(param, n), (int)param.types[n], (int)param.size[n]);
 }
