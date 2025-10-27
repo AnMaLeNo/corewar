@@ -6,7 +6,7 @@
 /*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 19:36:27 by amonot            #+#    #+#             */
-/*   Updated: 2025/10/26 16:19:47 by amonot           ###   ########.fr       */
+/*   Updated: 2025/10/27 15:24:57 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,4 +89,11 @@ void mem_set(unsigned char mem[MEM_SIZE], ssize_t start, const void *src,  int s
 {
 	for (int i = 0; i < size; i++)
 			*mem_acces(mem, start + i) = ((const unsigned char *)src)[i];
+}
+
+void *endian_convert(void *data, unsigned int n)
+{
+	static char convert[32];
+	rv_memcpy(&convert, data, n);
+	return (convert);
 }

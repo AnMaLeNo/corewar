@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amonot <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 15:08:04 by amonot            #+#    #+#             */
-/*   Updated: 2025/05/09 17:22:00 by amonot           ###   ########.fr       */
+/*   Updated: 2025/10/27 17:33:22 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,17 @@
 
 void print_process(t_process *process)
 {
-	t_process	*p;
-	int			i;
+	int	i;
 
 	i = 0;
-	p = process;
-	while (p)
+	while (process)
 	{
-		printf("process\tn: %d\tpc:%ld\tr1: %d\tr2: %d\tr3: %d\tr4: %d\n", i, process->pc, *((int *)&process->reg[0]), *((int *)&process->reg[1]), *((int *)&process->reg[2]), *((int *)&process->reg[3]));
-		p = p->next;
+		printf("process\tn: %d\tpc:%ld\tr1->[%02X][%02X][%02X][%02X]->%d\tr2->[%02X][%02X][%02X][%02X]->%d\tr3->[%02X][%02X][%02X][%02X]->%d\tr4->[%02X][%02X][%02X][%02X]->%d\n", i, process->pc, 
+			process->reg[0][0], process->reg[0][1], process->reg[0][2], process->reg[0][3], *((int *)&process->reg[0]),
+			process->reg[1][0], process->reg[1][1], process->reg[1][2], process->reg[1][3], *((int *)&process->reg[1]),
+			process->reg[2][0], process->reg[2][1], process->reg[2][2], process->reg[2][3], *((int *)&process->reg[2]),
+			process->reg[3][0], process->reg[3][1], process->reg[3][2], process->reg[3][3], *((int *)&process->reg[3]));
+		process = process->next;
 		i++;
 	}
 }
@@ -73,4 +75,11 @@ void debug(unsigned char mem[MEM_SIZE], t_vm vm, t_process *process)
 	printf("\033[32m%s\tnb_cycles: %d\033[0m\n", op->name, op->nb_cycles);
 	if (getchar() < 0)
 		usleep(500);
+}
+
+void print_params(t_params param, int n)
+{
+	printf("param %d: tab->[%02X][%02X][%02X][%02X]->%d type->%d size->%d\n", n,
+		((unsigned char *)&param.tab[n])[0], ((unsigned char *)&param.tab[n])[1], ((unsigned char *)&param.tab[n])[2], ((unsigned char *)&param.tab[n])[3], 
+		param.tab[n], param.types[n], param.size[n]);
 }

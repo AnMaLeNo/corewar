@@ -6,7 +6,7 @@
 /*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 15:54:11 by amonot            #+#    #+#             */
-/*   Updated: 2025/10/26 16:11:27 by amonot           ###   ########.fr       */
+/*   Updated: 2025/10/27 16:37:29 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,20 @@ int param_size(t_op op, unsigned char acb, int n, int *type)
 int get_param(unsigned char mem[MEM_SIZE], size_t pc, t_op op, t_params *params)
 {
 	unsigned char	acb;
-	int				size;
-	int				i;
-	int				p_size;
+	int			size;
+	int			i;
 
 	i = 0;
 	size = 0;
-	acb = mem[(pc + size) % MEM_SIZE]; // pc est = a pc + 1 en realiter
+	acb = mem[(pc + 1) % MEM_SIZE]; // + 1 pour opcode
 	if (op.has_pcode)
 		size++;
 	while (i < op.nb_params)
 	{
-		p_size = param_size(op, acb, i, &params->types[i]);
-		//printf("param: %d, size: %d\n", i + 1, p_size);
-		rv_memcpy(&params->tab[i], &mem[(pc + size) % MEM_SIZE], p_size);
-		size += p_size;
+		params->size[i] = param_size(op, acb, i, &params->types[i]);
+		//rv_memcpy(&params->tab[i], &mem[(pc + size) % MEM_SIZE], params->size[i]); // pour quoi rv ?? il faut utiliser mem_cpy !
+		mem_cpy(mem, pc + 1 + size, &params->tab[i], params->size[i]); // + 1 pour opcode
+		size += params->size[i];
 		i++;
 	}
 	return (size);

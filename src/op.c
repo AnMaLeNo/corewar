@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amonot <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2025/05/11 02:50:48 by amonot           ###   ########.fr       */
+/*   Updated: 2025/10/27 14:43:46 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_op    op_tab[17] =
 	{"zjmp", 1, 9, 20, "jump if zero", 0, 1, {PARAM_DIRECT}}, // 20 10
 	{"ldi", 3, 10, 25, "load index", 1, 1, {PARAM_REGISTER | PARAM_DIRECT | PARAM_INDIRECT, PARAM_DIRECT | PARAM_REGISTER, PARAM_REGISTER}},
 	{"sti", 3, 11, 25, "store index", 1, 1, {PARAM_REGISTER, PARAM_REGISTER | PARAM_DIRECT | PARAM_INDIRECT, PARAM_DIRECT | PARAM_REGISTER}},
-	{"fork", 1, 12, 800, "fork", 0, 1, {PARAM_DIRECT}},
+	{"f	ork", 1, 12, 800, "fork", 0, 1, {PARAM_DIRECT}},
 	{"lld", 2, 13, 10, "long load", 1, 0, {PARAM_DIRECT | PARAM_INDIRECT, PARAM_REGISTER}},
 	{"lldi", 3, 14, 50, "long load index", 1, 1, {PARAM_REGISTER | PARAM_DIRECT | PARAM_INDIRECT, PARAM_DIRECT | PARAM_REGISTER, PARAM_REGISTER}},
 	{"lfork", 1, 15, 1000, "long fork", 0, 1, {PARAM_DIRECT}},

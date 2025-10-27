@@ -6,7 +6,7 @@
 /*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 15:52:18 by amonot            #+#    #+#             */
-/*   Updated: 2025/10/26 19:06:56 by amonot           ###   ########.fr       */
+/*   Updated: 2025/10/27 17:29:07 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,11 @@ void st(unsigned char mem[MEM_SIZE], t_process *process, t_op op)
 	int			params_size;
 
 	ft_bzero(&params, sizeof(t_params)); // ???
-	params_size = get_param(mem, process->pc + 1, op, &params);
+	params_size = get_param(mem, process->pc, op, &params);
 	if (params.types[1] == REG_CODE)
 		ft_memcpy(&process->reg[params.tab[1] - 1], &process->reg[params.tab[0] - 1], 4);
-	else {
-		//printf("st: parma normal: %d\n", params.tab[1]);
-		//printf("st: parma short int: %d\n", (short int)params.tab[1]);
+	else
 		mem_set(mem, process->pc + (short int)params.tab[1], &process->reg[params.tab[0] - 1], 4);
-	}
 	process->pc += params_size + 1;
 }
 
@@ -45,21 +42,13 @@ void zjmp(unsigned char mem[MEM_SIZE], t_process *process, t_op op)
 	int			params_size;
 
 	ft_bzero(&params, sizeof(t_params)); // ???
-	params_size = get_param(mem, process->pc + 1, op, &params);
+	params_size = get_param(mem, process->pc, op, &params);
 
 	if (process->carry == 1) // ici ou avant  ???
 		process->pc += (char)params.tab[0];
 	else
 		process->pc += params_size + 1;
 	process->pc = process->pc % MEM_SIZE;
-}
-
-int to_intl(void *big)
-{
-	int	little;
-
-	rv_memcpy(&little, big, 4);
-	return (little);
 }
 
 char to_charl(void *big)
@@ -70,22 +59,22 @@ char to_charl(void *big)
 	return (little);
 }
 
-void ld(unsigned char mem[MEM_SIZE], t_process *process, t_op op)
+void ld(unsigned char mem[MEM_SIZE], t_process *process, t_op op) // verifier si le registere ezsiste et fair une fonction pour manipuler les registre
 {
 	t_params	params;
-	int			params_size;
+	int		params_size;
 
 	ft_bzero(&params, sizeof(t_params)); // ???
-	params_size = get_param(mem, process->pc + 1, op, &params);
+	params_size = get_param(mem, process->pc, op, &params);
+	print_params(params, 0);
+	print_params(params, 1);
 
 	if (params.types[0] == DIR_CODE)
-		ft_memcpy(&process->reg[params.tab[1] - 1], &(params.tab[0]), 4);
-	else {
-		//printf("ld: parma normal: %d\n", params.tab[0]);
-		//printf("ld: parma short int: %d\n", (short int)params.tab[0]);
+		ft_memcpy(&process->reg[params.tab[1] - 1], &(params.tab[0]), 4); // le param est en big andien la ???!
+		//reg_set(process->reg, params.tab[1] - 1, )
+	else
 		mem_cpy(mem, process->pc + (short int)params.tab[0], process->reg[params.tab[1] - 1], 4); // (short int)params.tab[0] ??
-	}
-	if (to_intl(&process->reg[params.tab[1] - 1]) == 0)
+	if (*(int *)endian_convert(&process->reg[params.tab[1] - 1], sizeof(int)) == 0)
 		process->carry = 1;
 	else
 		process->carry = 0;
@@ -98,8 +87,9 @@ void add(unsigned char mem[MEM_SIZE], t_process *process, t_op op)
 	int			params_size;
 
 	ft_bzero(&params, sizeof(t_params)); // ???
-	params_size = get_param(mem, process->pc + 1, op, &params);
+	params_size = get_param(mem, process->pc, op, &params);
 
+	// verifier si les registre exsiste
 	*(int *)&process->reg[params.tab[2] - 1] = *(int *)&process->reg[params.tab[0] - 1] + *(int *)&process->reg[params.tab[1] - 1];
 	if (to_charl(&process->reg[params.tab[2] - 1]) == 0)
 		process->carry = 1;

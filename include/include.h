@@ -6,7 +6,7 @@
 /*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 16:36:40 by amonot            #+#    #+#             */
-/*   Updated: 2025/10/26 16:19:52 by amonot           ###   ########.fr       */
+/*   Updated: 2025/10/27 17:46:56 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,14 @@
 #include <fcntl.h>
 #include "op.h"
 
-#define MAX_PARAMS 4 
+#define MAX_PARAMS 4
+
+// pc: le byte le moins significatif en premier
+// corwar: le byte le plus significatif en premier
 
 typedef struct s_process
 {
-	char				reg[REG_NUMBER][REG_SIZE]; // reg c'est les registre
+	unsigned char			reg[REG_NUMBER][REG_SIZE]; // reg c'est les registre // !! char -> unsigned char
 	size_t				pc; // l’adresse du prochain ensemble d’instructions à exécuter
 	bool				carry; // un flage que certaine opérations peuvent modifier
 	int					cycle; // ?? (nombre de cyle a attendre avant d'executer la prochenne instruction)
@@ -53,8 +56,9 @@ typedef struct s_vm
 
 typedef struct s_params
 {
-	int	tab[MAX_PARAMS];
+	int	tab[MAX_PARAMS]; // int -> unsigned char
 	int	types[MAX_PARAMS];
+	int	size[MAX_PARAMS];
 }		t_params;
 
 int get_header(int fd, t_header	*champion);
@@ -78,13 +82,17 @@ void zjmp(unsigned char mem[MEM_SIZE], t_process *process, t_op op);
 // utile
 void			ft_bzero(void *s, size_t n);
 void			*rv_memcpy(void *destination, const void *source, size_t size);
-int				ft_strcmp(const char *first, const char *second);
-void			*rv_memcpy(void *destination, const void *source, size_t size);
+int			ft_strcmp(const char *first, const char *second);
 void			*ft_memcpy(void *destination, const void *source, size_t size);
 void			mem_set(unsigned char mem[MEM_SIZE], ssize_t start, const void *src,  int size);
 void			mem_cpy(unsigned char mem[MEM_SIZE], ssize_t start, const void *dest, int size);
+void			*endian_convert(void *data, unsigned int n);
+
+// refistries
+void reg_set(unsigned char	reg[REG_NUMBER][REG_SIZE], int r, void *dest);
 
 // debug
 void debug(unsigned char mem[MEM_SIZE], t_vm vm, t_process *process);
+void print_params(t_params param, int n);
 
 #endif
