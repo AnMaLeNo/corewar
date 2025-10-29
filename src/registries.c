@@ -6,7 +6,7 @@
 /*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 17:04:01 by amonot            #+#    #+#             */
-/*   Updated: 2025/10/27 18:38:36 by amonot           ###   ########.fr       */
+/*   Updated: 2025/10/29 18:23:52 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void reg_set(unsigned char	reg[REG_NUMBER][REG_SIZE], int r, void *src)
 	int i;
 
 	i = 0;
-	if (r < 1 || r > REG_NUMBER)
+	if (r < 1 || r > REG_NUMBER || src == NULL)
 		return ;
 	while (i < REG_SIZE)
 	{

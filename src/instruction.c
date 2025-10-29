@@ -6,7 +6,7 @@
 /*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 15:52:18 by amonot            #+#    #+#             */
-/*   Updated: 2025/10/27 18:45:23 by amonot           ###   ########.fr       */
+/*   Updated: 2025/10/29 18:28:03 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,6 @@ int live(unsigned char mem[MEM_SIZE], size_t *pc)
 	*pc += 5;
 	return (param);
 }
-
-// void st(unsigned char mem[MEM_SIZE], t_process *process, t_op op)
-// {
-// 	t_params	params;
-// 	int			params_size;
-
-// 	ft_bzero(&params, sizeof(t_params)); // ???
-// 	params_size = get_param(mem, process->pc, op, &params);
-// 	if (params.types[1] == REG_CODE)
-// 		ft_memcpy(&process->reg[params.tab[1] - 1], &process->reg[params.tab[0] - 1], 4);
-// 	else
-// 		mem_set(mem, process->pc + (short int)params.tab[1], &process->reg[params.tab[0] - 1], 4);
-// 	process->pc += params_size + 1;
-// }
 
 // void zjmp(unsigned char mem[MEM_SIZE], t_process *process, t_op op)
 // {
@@ -54,9 +40,24 @@ int live(unsigned char mem[MEM_SIZE], size_t *pc)
 char to_charl(void *big)
 {
 	char	little;
-
+	
 	rv_memcpy(&little, big, 1); // ca fait rien
 	return (little);
+}
+
+void st(unsigned char mem[MEM_SIZE], t_process *process, t_op op)
+{
+	t_params	params;
+	int			params_size;
+
+	ft_bzero(&params, sizeof(t_params)); // ???
+	params_size = get_param(mem, process->pc, op, &params);
+	if (params.types[1] == REG_CODE)
+		//ft_memcpy(&process->reg[params.tab[1]) - 1], &process->reg[params.tab[0] - 1], 4);
+		reg_set(process->reg, param_val(params, 1), reg_access(process->reg, param_val(params, 0)));
+	else
+		mem_set(mem, process->pc + param_val(params, 1), reg_access(process->reg, param_val(params, 0)), 4);
+	process->pc += params_size + 1;
 }
 
 void ld(unsigned char mem[MEM_SIZE], t_process *process, t_op op) // verifier si le registere ezsiste et fair une fonction pour manipuler les registre

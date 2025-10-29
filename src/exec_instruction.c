@@ -6,7 +6,7 @@
 /*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 15:50:30 by amonot            #+#    #+#             */
-/*   Updated: 2025/10/27 17:51:15 by amonot           ###   ########.fr       */
+/*   Updated: 2025/10/29 18:32:28 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ int exec_instruction(unsigned char mem[MEM_SIZE], t_process *process)
 		r = live(mem, &process->pc);
 	else if (ft_strcmp(op->name, "ld") == 0)
 		ld(mem, process, *op);
-	// else if (ft_strcmp(op->name, "st") == 0)
-	// 	st(mem, process, *op);
+	else if (ft_strcmp(op->name, "st") == 0)
+	 	st(mem, process, *op);
 	// else if (ft_strcmp(op->name, "add") == 0)
 	// 	add(mem, process, *op);
 	// else if (ft_strcmp(op->name, "zjmp") == 0)
