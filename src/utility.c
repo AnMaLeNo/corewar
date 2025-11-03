@@ -6,7 +6,7 @@
 /*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 19:36:27 by amonot            #+#    #+#             */
-/*   Updated: 2025/10/27 15:24:57 by amonot           ###   ########.fr       */
+/*   Updated: 2025/11/03 14:18:56 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ void mem_cpy(unsigned char mem[MEM_SIZE], ssize_t start, const void *dest, int s
 
 void mem_set(unsigned char mem[MEM_SIZE], ssize_t start, const void *src,  int size)
 {
+	if (src == NULL)
+		return ;
 	for (int i = 0; i < size; i++)
 			*mem_acces(mem, start + i) = ((const unsigned char *)src)[i];
 }

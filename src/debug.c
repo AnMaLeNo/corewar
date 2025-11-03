@@ -6,11 +6,19 @@
 /*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 15:08:04 by amonot            #+#    #+#             */
-/*   Updated: 2025/10/27 18:19:47 by amonot           ###   ########.fr       */
+/*   Updated: 2025/11/03 15:25:54 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include.h"
+
+int geg_to_int(void *big)
+{
+	int	little;
+	
+	rv_memcpy(&little, big, 4); // ca fait rien
+	return (little);
+}
 
 void print_process(t_process *process)
 {
@@ -20,10 +28,10 @@ void print_process(t_process *process)
 	while (process)
 	{
 		printf("process\tn: %d\tpc:%ld\tr1->[%02X][%02X][%02X][%02X]->%d\tr2->[%02X][%02X][%02X][%02X]->%d\tr3->[%02X][%02X][%02X][%02X]->%d\tr4->[%02X][%02X][%02X][%02X]->%d\n", i, process->pc, 
-			process->reg[0][0], process->reg[0][1], process->reg[0][2], process->reg[0][3], *((int *)&process->reg[0]),
-			process->reg[1][0], process->reg[1][1], process->reg[1][2], process->reg[1][3], *((int *)&process->reg[1]),
-			process->reg[2][0], process->reg[2][1], process->reg[2][2], process->reg[2][3], *((int *)&process->reg[2]),
-			process->reg[3][0], process->reg[3][1], process->reg[3][2], process->reg[3][3], *((int *)&process->reg[3]));
+			process->reg[0][0], process->reg[0][1], process->reg[0][2], process->reg[0][3], geg_to_int(process->reg[0]),
+			process->reg[1][0], process->reg[1][1], process->reg[1][2], process->reg[1][3], geg_to_int(process->reg[1]),
+			process->reg[2][0], process->reg[2][1], process->reg[2][2], process->reg[2][3], geg_to_int(process->reg[2]),
+			process->reg[3][0], process->reg[3][1], process->reg[3][2], process->reg[3][3], geg_to_int(process->reg[3]));
 		process = process->next;
 		i++;
 	}
