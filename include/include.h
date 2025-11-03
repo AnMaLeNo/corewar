@@ -6,7 +6,7 @@
 /*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 16:36:40 by amonot            #+#    #+#             */
-/*   Updated: 2025/11/03 19:31:40 by amonot           ###   ########.fr       */
+/*   Updated: 2025/11/03 19:52:21 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void ld(unsigned char mem[MEM_SIZE], t_process *process, t_op op);
 void st(unsigned char mem[MEM_SIZE], t_process *process, t_op op);
 void add(unsigned char mem[MEM_SIZE], t_process *process, t_op op);
 void sub(unsigned char mem[MEM_SIZE], t_process *process, t_op op);
+void and(unsigned char mem[MEM_SIZE], t_process *process, t_op op);
 //void zjmp(unsigned char mem[MEM_SIZE], t_process *process, t_op op);
 
 
@@ -90,12 +91,13 @@ void			mem_cpy(unsigned char mem[MEM_SIZE], ssize_t start, const void *dest, int
 void			*endian_convert(void *data, unsigned int n);
 
 // registries
-void reg_set(unsigned char	reg[REG_NUMBER][REG_SIZE], int r, void *dest);
+void reg_set(unsigned char	reg[REG_NUMBER][REG_SIZE], int r, void *src);
 unsigned char *reg_access(unsigned char	reg[REG_NUMBER][REG_SIZE], int r);
 bool is_valid_reg(t_params params, t_op op);
 
 // params
 int param_val(t_params params, int n);
+int	param_sub_val(unsigned char mem[MEM_SIZE], unsigned char reg[REG_NUMBER][REG_SIZE], t_params params, int n);
 
 // debug
 void debug(unsigned char mem[MEM_SIZE], t_vm vm, t_process *process);
