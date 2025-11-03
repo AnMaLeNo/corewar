@@ -6,7 +6,7 @@
 /*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 15:52:18 by amonot            #+#    #+#             */
-/*   Updated: 2025/11/03 16:09:40 by amonot           ###   ########.fr       */
+/*   Updated: 2025/11/03 17:11:20 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,29 @@ void add(unsigned char mem[MEM_SIZE], t_process *process, t_op op)
 		return ;
 	result = *(int *)endian_convert(reg_access(process->reg, param_val(params, 0)), REG_SIZE) + *(int *)endian_convert(reg_access(process->reg, param_val(params, 1)), REG_SIZE);
 	reg_set(process->reg, param_val(params, 2), endian_convert(&result, 4)); // pas sur que ca marche car pas de convertion de little verre big durant l'adition
-	if (*(int *)reg_access(process->reg, param_val(params, 2)) == 0)
+	if (result == 0)
+		process->carry = 1;
+	else
+		process->carry = 0;
+	process->pc += params_size + 1;
+}
+
+void sub(unsigned char mem[MEM_SIZE], t_process *process, t_op op)
+{
+	t_params	params;
+	int		params_size;
+	int		result;
+
+	ft_bzero(&params, sizeof(t_params)); // ???
+	params_size = get_param(mem, process->pc, op, &params);
+
+	// verifier si les registre exsiste
+	//*(int *)&process->reg[params.tab[2] - 1] = *(int *)&process->reg[params.tab[0] - 1] + *(int *)&process->reg[params.tab[1] - 1];
+	if (reg_access(process->reg, param_val(params, 0)) == NULL || reg_access(process->reg, param_val(params, 1)) == NULL)
+		return ;
+	result = *(int *)endian_convert(reg_access(process->reg, param_val(params, 0)), REG_SIZE) - *(int *)endian_convert(reg_access(process->reg, param_val(params, 1)), REG_SIZE);
+	reg_set(process->reg, param_val(params, 2), endian_convert(&result, 4)); // pas sur que ca marche car pas de convertion de little verre big durant l'adition
+	if (result == 0)
 		process->carry = 1;
 	else
 		process->carry = 0;

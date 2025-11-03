@@ -6,7 +6,7 @@
 /*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 16:36:40 by amonot            #+#    #+#             */
-/*   Updated: 2025/11/03 15:30:04 by amonot           ###   ########.fr       */
+/*   Updated: 2025/11/03 17:12:01 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ int live(unsigned char mem[MEM_SIZE], size_t *pc);
 void ld(unsigned char mem[MEM_SIZE], t_process *process, t_op op);
 void st(unsigned char mem[MEM_SIZE], t_process *process, t_op op);
 void add(unsigned char mem[MEM_SIZE], t_process *process, t_op op);
+void sub(unsigned char mem[MEM_SIZE], t_process *process, t_op op);
 //void zjmp(unsigned char mem[MEM_SIZE], t_process *process, t_op op);
 
 
