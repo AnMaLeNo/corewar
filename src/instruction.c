@@ -6,7 +6,7 @@
 /*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 15:52:18 by amonot            #+#    #+#             */
-/*   Updated: 2025/11/03 17:11:20 by amonot           ###   ########.fr       */
+/*   Updated: 2025/11/03 18:54:14 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,27 @@ int live(unsigned char mem[MEM_SIZE], size_t *pc)
 	return (param);
 }
 
+bool is_valid_acb(unsigned char mem[MEM_SIZE], size_t pc, t_op op)
+{
+	unsigned char	acb;
+	int 			type;
+	int 			n;
+
+	n = 0;
+	mem_cpy(mem, pc + 1, &acb, 1);
+	if (op.has_pcode)
+	{
+		while (n < op.nb_params)
+		{
+			type = (acb & 0b11000000 >> 2 * n) >> (6 - n * 2);
+			if ((op.param_types[n] & type ) == 0)
+				return (false);
+			n++;
+		}
+	}
+	return (true);
+}
+
 void ld(unsigned char mem[MEM_SIZE], t_process *process, t_op op) // verifier si le registere ezsiste et fair une fonction pour manipuler les registre
 {
 	t_params	params;
@@ -29,19 +50,20 @@ void ld(unsigned char mem[MEM_SIZE], t_process *process, t_op op) // verifier si
 	
 	ft_bzero(&params, sizeof(t_params)); // ???
 	params_size = get_param(mem, process->pc, op, &params);
-	print_params(params, 0); // check parame size 2 | OK
-	print_params(params, 1);
-	
-	if (params.types[0] == DIR_CODE)
-		//ft_memcpy(&process->reg[params.tab[1] - 1], &(params.tab[0]), 4); // le param est en big andien la ???!
-		reg_set(process->reg, param_val(params, 1), params.tab[0]); // pas de param_val(params, 0) car on copie juste de big ver big
-	else
-		//mem_cpy(mem, process->pc + (short int)params.tab[0], process->reg[params.tab[1] - 1], 4); // (short int)params.tab[0] ??
-		mem_cpy(mem, process->pc + param_val(params, 0),  reg_access(process->reg, param_val(params, 1)), 4);
-	if (*(int *)endian_convert(reg_access(process->reg, param_val(params, 1)), sizeof(int)) == 0)
-		process->carry = 1;
-	else
-		process->carry = 0;
+
+	if (is_valid_acb(mem, process->pc, op))
+	{
+		if (params.types[0] == DIR_CODE)
+			//ft_memcpy(&process->reg[params.tab[1] - 1], &(params.tab[0]), 4); // le param est en big andien la ???!
+			reg_set(process->reg, param_val(params, 1), params.tab[0]); // pas de param_val(params, 0) car on copie juste de big ver big
+		else
+			//mem_cpy(mem, process->pc + (short int)params.tab[0], process->reg[params.tab[1] - 1], 4); // (short int)params.tab[0] ??
+			mem_cpy(mem, process->pc + param_val(params, 0),  reg_access(process->reg, param_val(params, 1)), 4);
+		if (*(int *)endian_convert(reg_access(process->reg, param_val(params, 1)), sizeof(int)) == 0)
+			process->carry = 1;
+		else
+			process->carry = 0;
+	}
 	process->pc += params_size + 1;
 }
 
@@ -52,11 +74,14 @@ void st(unsigned char mem[MEM_SIZE], t_process *process, t_op op)
 	
 	ft_bzero(&params, sizeof(t_params)); // ???
 	params_size = get_param(mem, process->pc, op, &params);
-	if (params.types[1] == REG_CODE)
-		//ft_memcpy(&process->reg[params.tab[1]) - 1], &process->reg[params.tab[0] - 1], 4);
-		reg_set(process->reg, param_val(params, 1), reg_access(process->reg, param_val(params, 0)));
-	else
-		mem_set(mem, process->pc + param_val(params, 1), reg_access(process->reg, param_val(params, 0)), REG_SIZE);
+	if (is_valid_acb(mem, process->pc, op))
+	{
+		if (params.types[1] == REG_CODE)
+			//ft_memcpy(&process->reg[params.tab[1]) - 1], &process->reg[params.tab[0] - 1], 4);
+			reg_set(process->reg, param_val(params, 1), reg_access(process->reg, param_val(params, 0)));
+		else
+			mem_set(mem, process->pc + param_val(params, 1), reg_access(process->reg, param_val(params, 0)), REG_SIZE);
+	}
 	process->pc += params_size + 1;
 }
 
@@ -71,14 +96,17 @@ void add(unsigned char mem[MEM_SIZE], t_process *process, t_op op)
 
 	// verifier si les registre exsiste
 	//*(int *)&process->reg[params.tab[2] - 1] = *(int *)&process->reg[params.tab[0] - 1] + *(int *)&process->reg[params.tab[1] - 1];
-	if (reg_access(process->reg, param_val(params, 0)) == NULL || reg_access(process->reg, param_val(params, 1)) == NULL)
-		return ;
-	result = *(int *)endian_convert(reg_access(process->reg, param_val(params, 0)), REG_SIZE) + *(int *)endian_convert(reg_access(process->reg, param_val(params, 1)), REG_SIZE);
-	reg_set(process->reg, param_val(params, 2), endian_convert(&result, 4)); // pas sur que ca marche car pas de convertion de little verre big durant l'adition
-	if (result == 0)
+	if (is_valid_acb(mem, process->pc, op))
+	{
+		if (reg_access(process->reg, param_val(params, 0)) == NULL || reg_access(process->reg, param_val(params, 1)) == NULL)
+			return ;
+		result = *(int *)endian_convert(reg_access(process->reg, param_val(params, 0)), REG_SIZE) + *(int *)endian_convert(reg_access(process->reg, param_val(params, 1)), REG_SIZE);
+		reg_set(process->reg, param_val(params, 2), endian_convert(&result, 4)); // pas sur que ca marche car pas de convertion de little verre big durant l'adition
+		if (result == 0)
 		process->carry = 1;
-	else
-		process->carry = 0;
+		else
+			process->carry = 0;
+	}
 	process->pc += params_size + 1;
 }
 
@@ -93,16 +121,32 @@ void sub(unsigned char mem[MEM_SIZE], t_process *process, t_op op)
 
 	// verifier si les registre exsiste
 	//*(int *)&process->reg[params.tab[2] - 1] = *(int *)&process->reg[params.tab[0] - 1] + *(int *)&process->reg[params.tab[1] - 1];
-	if (reg_access(process->reg, param_val(params, 0)) == NULL || reg_access(process->reg, param_val(params, 1)) == NULL)
-		return ;
-	result = *(int *)endian_convert(reg_access(process->reg, param_val(params, 0)), REG_SIZE) - *(int *)endian_convert(reg_access(process->reg, param_val(params, 1)), REG_SIZE);
-	reg_set(process->reg, param_val(params, 2), endian_convert(&result, 4)); // pas sur que ca marche car pas de convertion de little verre big durant l'adition
-	if (result == 0)
-		process->carry = 1;
-	else
-		process->carry = 0;
+	if (is_valid_acb(mem, process->pc, op))
+	{		
+		if (reg_access(process->reg, param_val(params, 0)) == NULL || reg_access(process->reg, param_val(params, 1)) == NULL)
+			return ;
+		result = *(int *)endian_convert(reg_access(process->reg, param_val(params, 0)), REG_SIZE) - *(int *)endian_convert(reg_access(process->reg, param_val(params, 1)), REG_SIZE);
+		reg_set(process->reg, param_val(params, 2), endian_convert(&result, 4)); // pas sur que ca marche car pas de convertion de little verre big durant l'adition
+		if (result == 0)
+			process->carry = 1;
+		else
+			process->carry = 0;
+	}
 	process->pc += params_size + 1;
 }
+
+// void and(unsigned char mem[MEM_SIZE], t_process *process, t_op op)
+// {
+// 	t_params params;
+// 	int params_size;
+// 	//int result;
+
+// 	ft_bzero(&params, sizeof(t_params)); // ???
+// 	params_size = get_param(mem, process->pc, op, &params);
+
+
+
+// }
 
 // void zjmp(unsigned char mem[MEM_SIZE], t_process *process, t_op op)
 // {

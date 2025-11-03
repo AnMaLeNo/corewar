@@ -6,7 +6,7 @@
 /*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 15:54:11 by amonot            #+#    #+#             */
-/*   Updated: 2025/10/27 16:37:29 by amonot           ###   ########.fr       */
+/*   Updated: 2025/11/03 18:54:33 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ int get_param(unsigned char mem[MEM_SIZE], size_t pc, t_op op, t_params *params)
 
 	i = 0;
 	size = 0;
-	acb = mem[(pc + 1) % MEM_SIZE]; // + 1 pour opcode
+	//acb = mem[(pc + 1) % MEM_SIZE]; // + 1 pour opcode // metre mem cpy !
+	mem_cpy(mem, pc + 1, &acb, 1);
 	if (op.has_pcode)
 		size++;
 	while (i < op.nb_params)
