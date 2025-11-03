@@ -6,7 +6,7 @@
 /*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 17:04:01 by amonot            #+#    #+#             */
-/*   Updated: 2025/10/29 18:23:52 by amonot           ###   ########.fr       */
+/*   Updated: 2025/11/03 19:31:54 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,21 @@ unsigned char *reg_access(unsigned char	reg[REG_NUMBER][REG_SIZE], int r)
 	if (r < 1 || r > REG_NUMBER)
 		return (NULL);
 	return (reg[r - 1]);
+}
+
+bool is_valid_reg(t_params params, t_op op)
+{
+	int 			i;
+
+	i = 0;
+	while (i < op.nb_params)
+	{
+		if (params.types[i] == REG_CODE)
+		{
+			if (param_val(params, i) < 1 || param_val(params, i) > 16)
+				return (false);
+		}
+		i++;
+	}
+	return (true);
 }

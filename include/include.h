@@ -6,7 +6,7 @@
 /*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 16:36:40 by amonot            #+#    #+#             */
-/*   Updated: 2025/11/03 17:12:01 by amonot           ###   ########.fr       */
+/*   Updated: 2025/11/03 19:31:40 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,10 @@ void			mem_set(unsigned char mem[MEM_SIZE], ssize_t start, const void *src,  int
 void			mem_cpy(unsigned char mem[MEM_SIZE], ssize_t start, const void *dest, int size);
 void			*endian_convert(void *data, unsigned int n);
 
-// refistries
+// registries
 void reg_set(unsigned char	reg[REG_NUMBER][REG_SIZE], int r, void *dest);
 unsigned char *reg_access(unsigned char	reg[REG_NUMBER][REG_SIZE], int r);
+bool is_valid_reg(t_params params, t_op op);
 
 // params
 int param_val(t_params params, int n);

@@ -6,7 +6,7 @@
 /*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 15:52:18 by amonot            #+#    #+#             */
-/*   Updated: 2025/11/03 18:54:14 by amonot           ###   ########.fr       */
+/*   Updated: 2025/11/03 19:32:51 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void ld(unsigned char mem[MEM_SIZE], t_process *process, t_op op) // verifier si
 	ft_bzero(&params, sizeof(t_params)); // ???
 	params_size = get_param(mem, process->pc, op, &params);
 
-	if (is_valid_acb(mem, process->pc, op))
+	if (is_valid_acb(mem, process->pc, op) && is_valid_reg(params, op))
 	{
 		if (params.types[0] == DIR_CODE)
 			//ft_memcpy(&process->reg[params.tab[1] - 1], &(params.tab[0]), 4); // le param est en big andien la ???!
@@ -74,7 +74,7 @@ void st(unsigned char mem[MEM_SIZE], t_process *process, t_op op)
 	
 	ft_bzero(&params, sizeof(t_params)); // ???
 	params_size = get_param(mem, process->pc, op, &params);
-	if (is_valid_acb(mem, process->pc, op))
+	if (is_valid_acb(mem, process->pc, op) && is_valid_reg(params, op))
 	{
 		if (params.types[1] == REG_CODE)
 			//ft_memcpy(&process->reg[params.tab[1]) - 1], &process->reg[params.tab[0] - 1], 4);
@@ -96,7 +96,7 @@ void add(unsigned char mem[MEM_SIZE], t_process *process, t_op op)
 
 	// verifier si les registre exsiste
 	//*(int *)&process->reg[params.tab[2] - 1] = *(int *)&process->reg[params.tab[0] - 1] + *(int *)&process->reg[params.tab[1] - 1];
-	if (is_valid_acb(mem, process->pc, op))
+	if (is_valid_acb(mem, process->pc, op) && is_valid_reg(params, op))
 	{
 		if (reg_access(process->reg, param_val(params, 0)) == NULL || reg_access(process->reg, param_val(params, 1)) == NULL)
 			return ;
@@ -121,7 +121,7 @@ void sub(unsigned char mem[MEM_SIZE], t_process *process, t_op op)
 
 	// verifier si les registre exsiste
 	//*(int *)&process->reg[params.tab[2] - 1] = *(int *)&process->reg[params.tab[0] - 1] + *(int *)&process->reg[params.tab[1] - 1];
-	if (is_valid_acb(mem, process->pc, op))
+	if (is_valid_acb(mem, process->pc, op) && is_valid_reg(params, op))
 	{		
 		if (reg_access(process->reg, param_val(params, 0)) == NULL || reg_access(process->reg, param_val(params, 1)) == NULL)
 			return ;
@@ -139,13 +139,16 @@ void sub(unsigned char mem[MEM_SIZE], t_process *process, t_op op)
 // {
 // 	t_params params;
 // 	int params_size;
-// 	//int result;
+// 	int result;
 
 // 	ft_bzero(&params, sizeof(t_params)); // ???
 // 	params_size = get_param(mem, process->pc, op, &params);
 
+// 	if (is_valid_acb(mem, process->pc, op))
+// 	{
 
-
+// 	}
+// 	process->pc += params_size + 1;
 // }
 
 // void zjmp(unsigned char mem[MEM_SIZE], t_process *process, t_op op)
