@@ -6,7 +6,7 @@
 /*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 15:52:18 by amonot            #+#    #+#             */
-/*   Updated: 2025/11/05 13:11:03 by amonot           ###   ########.fr       */
+/*   Updated: 2025/11/05 14:25:44 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,20 +198,20 @@ void xor(unsigned char mem[MEM_SIZE], t_process *process, t_op op)
 	process->pc += params_size + 1;
 }
 
-// void zjmp(unsigned char mem[MEM_SIZE], t_process *process, t_op op)
-// {
-// 	t_params	params;
-// 	int			params_size;
+void zjmp(unsigned char mem[MEM_SIZE], t_process *process, t_op op)
+{
+	t_params	params;
+	int		params_size;
 
-// 	ft_bzero(&params, sizeof(t_params)); // ???
-// 	params_size = get_param(mem, process->pc, op, &params);
+	ft_bzero(&params, sizeof(t_params)); // ???
+	params_size = get_param(mem, process->pc, op, &params);
 
-// 	if (process->carry == 1) // ici ou avant  ???
-// 		process->pc += (char)params.tab[0];
-// 	else
-// 		process->pc += params_size + 1;
-// 	process->pc = process->pc % MEM_SIZE;
-// }
+	if (process->carry == 1) // ici ou avant  ??? / comment ca ?
+		process->pc += param_val(params, 0);
+	else
+		process->pc += params_size + 1;
+	//process->pc = process->pc % MEM_SIZE; faut fair quel que chose de comme ca a la fait de chaque instruction executer
+}
 
 /* void ldi(unsigned char mem[MEM_SIZE], size_t *pc, t_op op)
 {
