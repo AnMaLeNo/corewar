@@ -6,7 +6,7 @@
 /*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 16:36:40 by amonot            #+#    #+#             */
-/*   Updated: 2025/11/03 19:52:21 by amonot           ###   ########.fr       */
+/*   Updated: 2025/11/05 13:11:29 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ void st(unsigned char mem[MEM_SIZE], t_process *process, t_op op);
 void add(unsigned char mem[MEM_SIZE], t_process *process, t_op op);
 void sub(unsigned char mem[MEM_SIZE], t_process *process, t_op op);
 void and(unsigned char mem[MEM_SIZE], t_process *process, t_op op);
+void or(unsigned char mem[MEM_SIZE], t_process *process, t_op op);
+void xor(unsigned char mem[MEM_SIZE], t_process *process, t_op op);
 //void zjmp(unsigned char mem[MEM_SIZE], t_process *process, t_op op);
 
 

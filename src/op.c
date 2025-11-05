@@ -6,7 +6,7 @@
 /*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2025/11/03 17:30:20 by amonot           ###   ########.fr       */
+/*   Updated: 2025/11/05 13:14:00 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ t_op    op_tab[17] =
 	{"sub", 3, 5, 10, "soustraction", 1, 0, {PARAM_REGISTER, PARAM_REGISTER, PARAM_REGISTER}},
 	
 	{"and", 3, 6, 6, "et (and  r1, r2, r3   r1&r2 -> r3", 1, 0, {PARAM_REGISTER | PARAM_DIRECT | PARAM_INDIRECT, PARAM_REGISTER | PARAM_INDIRECT | PARAM_DIRECT, PARAM_REGISTER}},
-	
 	{"or", 3, 7, 6, "ou  (or   r1, r2, r3   r1 | r2 -> r3", 1, 0, {PARAM_REGISTER | PARAM_INDIRECT | PARAM_DIRECT, PARAM_REGISTER | PARAM_INDIRECT | PARAM_DIRECT, PARAM_REGISTER}},
 	{"xor", 3, 8, 6, "ou (xor  r1, r2, r3   r1^r2 -> r3", 1, 0, {PARAM_REGISTER | PARAM_INDIRECT | PARAM_DIRECT, PARAM_REGISTER | PARAM_INDIRECT | PARAM_DIRECT, PARAM_REGISTER}},
 	

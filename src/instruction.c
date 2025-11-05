@@ -6,7 +6,7 @@
 /*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 15:52:18 by amonot            #+#    #+#             */
-/*   Updated: 2025/11/03 19:46:20 by amonot           ###   ########.fr       */
+/*   Updated: 2025/11/05 13:11:03 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,48 @@ void and(unsigned char mem[MEM_SIZE], t_process *process, t_op op)
 	if (is_valid_acb(mem, process->pc, op) && is_valid_reg(params, op))
 	{
 		result = param_sub_val(mem, process->reg, params, 0) & param_sub_val(mem, process->reg, params, 1);
+		rv_memcpy(reg_access(process->reg, param_val(params, 2)), &result, 4);
+		if (result == 0)
+			process->carry = 1;
+		else
+			process->carry = 0;
+	}
+	process->pc += params_size + 1;
+}
+
+void or(unsigned char mem[MEM_SIZE], t_process *process, t_op op)
+{
+	t_params params;
+	int params_size;
+	int result;
+
+	ft_bzero(&params, sizeof(t_params)); // ???
+	params_size = get_param(mem, process->pc, op, &params);
+
+	if (is_valid_acb(mem, process->pc, op) && is_valid_reg(params, op))
+	{
+		result = param_sub_val(mem, process->reg, params, 0) | param_sub_val(mem, process->reg, params, 1);
+		rv_memcpy(reg_access(process->reg, param_val(params, 2)), &result, 4);
+		if (result == 0)
+			process->carry = 1;
+		else
+			process->carry = 0;
+	}
+	process->pc += params_size + 1;
+}
+
+void xor(unsigned char mem[MEM_SIZE], t_process *process, t_op op)
+{
+	t_params params;
+	int params_size;
+	int result;
+
+	ft_bzero(&params, sizeof(t_params)); // ???
+	params_size = get_param(mem, process->pc, op, &params);
+
+	if (is_valid_acb(mem, process->pc, op) && is_valid_reg(params, op))
+	{
+		result = param_sub_val(mem, process->reg, params, 0) ^ param_sub_val(mem, process->reg, params, 1);
 		rv_memcpy(reg_access(process->reg, param_val(params, 2)), &result, 4);
 		if (result == 0)
 			process->carry = 1;
