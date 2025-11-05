@@ -6,7 +6,7 @@
 /*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 15:52:18 by amonot            #+#    #+#             */
-/*   Updated: 2025/11/05 14:25:44 by amonot           ###   ########.fr       */
+/*   Updated: 2025/11/05 16:32:03 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,15 @@ bool is_valid_acb(unsigned char mem[MEM_SIZE], size_t pc, t_op op)
 	mem_cpy(mem, pc + 1, &acb, 1);
 	if (op.has_pcode)
 	{
-		while (n < op.nb_params)
+		while (n < 4)
 		{
 			type = (acb & 0b11000000 >> 2 * n) >> (6 - n * 2);
-			if ((op.param_types[n] & type ) == 0)
+			if (n >= op.nb_params)
+			{
+				if (type != 0)
+					return (false);
+			}
+			else if ((op.param_types[n] & type ) == 0)
 				return (false);
 			n++;
 		}

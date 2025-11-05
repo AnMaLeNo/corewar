@@ -6,7 +6,7 @@
 /*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 15:54:11 by amonot            #+#    #+#             */
-/*   Updated: 2025/11/05 16:27:05 by amonot           ###   ########.fr       */
+/*   Updated: 2025/11/05 16:27:58 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int get_param(unsigned char mem[MEM_SIZE], size_t pc, t_op op, t_params *params)
 	mem_cpy(mem, pc + 1, &acb, 1);
 	if (op.has_pcode)
 		size++;
-	while (i < op.nb_params)
+	while (i < 4) // op.nb_params -> 4
 	{
 		params->size[i] = param_size(op, acb, i, &params->types[i]);
 		//rv_memcpy(&params->tab[i], &mem[(pc + size) % MEM_SIZE], params->size[i]); // pour quoi rv ?? il faut utiliser mem_cpy !

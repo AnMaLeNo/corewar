@@ -29,9 +29,8 @@
 
 
 # test and / or / xor
-xor %16909060, %928675163, r1
 add r2, r3, r4
-zjmp %65535
+zjmp %3
 xor %16909060, %928675163, r1
 
 st r1, 13
