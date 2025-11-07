@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amonot <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 15:08:04 by amonot            #+#    #+#             */
-/*   Updated: 2025/11/03 15:25:54 by amonot           ###   ########.fr       */
+/*   Updated: 2025/11/07 01:45:08 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void live_mem(unsigned char mem[MEM_SIZE], int l, int h, size_t pc)
 	unsigned long int i;
 
 	i = 0;
-	printf("\033[H\033[J");
+	//printf("\033[H\033[J");
 	while (i < MEM_SIZE)
 	{
 		if (i == pc % MEM_SIZE)

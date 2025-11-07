@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instruction.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amonot <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 15:52:18 by amonot            #+#    #+#             */
-/*   Updated: 2025/11/05 16:32:03 by amonot           ###   ########.fr       */
+/*   Updated: 2025/11/07 02:29:19 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ bool is_valid_acb(unsigned char mem[MEM_SIZE], size_t pc, t_op op)
 	int 			n;
 
 	n = 0;
+	acb = 0; // a sup !?
 	mem_cpy(mem, pc + 1, &acb, 1);
 	if (op.has_pcode)
 	{
@@ -38,10 +39,17 @@ bool is_valid_acb(unsigned char mem[MEM_SIZE], size_t pc, t_op op)
 			if (n >= op.nb_params)
 			{
 				if (type != 0)
+				{
+					printf("ACB non valide (1)\n");
 					return (false);
+				}
 			}
-			else if ((op.param_types[n] & type ) == 0)
+			//else if ((op.param_types[n] & type ) == 0) // faux
+			else if ((op.param_types[n] & (-5 * type * type + 21 * type - 14) / 2) == 0) // magique
+			{
+				printf("ACB non valide (2), n: %d, op.param_types[n]: %d, type: %d\n", n, op.param_types[n], type);
 				return (false);
+			}
 			n++;
 		}
 	}
@@ -211,11 +219,38 @@ void zjmp(unsigned char mem[MEM_SIZE], t_process *process, t_op op)
 	ft_bzero(&params, sizeof(t_params)); // ???
 	params_size = get_param(mem, process->pc, op, &params);
 
-	if (process->carry == 1) // ici ou avant  ??? / comment ca ?
-		process->pc += param_val(params, 0);
-	else
-		process->pc += params_size + 1;
+	if (is_valid_acb(mem, process->pc, op) && is_valid_reg(params, op))
+	{
+		if (process->carry == 1)
+		{
+			process->pc += param_val(params, 0);
+			return ;
+		}
+	}
+	process->pc += params_size + 1;
 	//process->pc = process->pc % MEM_SIZE; faut fair quel que chose de comme ca a la fait de chaque instruction executer
+}
+
+void ldi(unsigned char mem[MEM_SIZE], t_process *process, t_op op)
+{
+	t_params		params;
+	int				params_size;
+	int				adresse;
+
+	ft_bzero(&params, sizeof(t_params)); // ???
+	params_size = get_param(mem, process->pc, op, &params);
+
+	//printf("ldi: pc: %ld", process->pc);
+	
+	print_params(params, 0);
+	print_params(params, 1);
+	print_params(params, 2);
+	if (is_valid_acb(mem, process->pc, op) && is_valid_reg(params, op))
+	{
+		adresse = param_sub_val(mem, process->reg, params, 0) + param_sub_val(mem, process->reg, params, 1);
+		mem_cpy(mem, adresse + process->pc, reg_access(process->reg, param_val(params, 2)), 4);
+	}
+	process->pc += params_size + 1;
 }
 
 /* void ldi(unsigned char mem[MEM_SIZE], size_t *pc, t_op op)

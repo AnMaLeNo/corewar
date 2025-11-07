@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   include.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amonot <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 16:36:40 by amonot            #+#    #+#             */
-/*   Updated: 2025/11/05 14:27:59 by amonot           ###   ########.fr       */
+/*   Updated: 2025/11/07 01:16:33 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,16 +81,16 @@ void and(unsigned char mem[MEM_SIZE], t_process *process, t_op op);
 void or(unsigned char mem[MEM_SIZE], t_process *process, t_op op);
 void xor(unsigned char mem[MEM_SIZE], t_process *process, t_op op);
 void zjmp(unsigned char mem[MEM_SIZE], t_process *process, t_op op);
-
+void ldi(unsigned char mem[MEM_SIZE], t_process *process, t_op op);
 
 // utile
-void			ft_bzero(void *s, size_t n);
-void			*rv_memcpy(void *destination, const void *source, size_t size);
-int			ft_strcmp(const char *first, const char *second);
-void			*ft_memcpy(void *destination, const void *source, size_t size);
-void			mem_set(unsigned char mem[MEM_SIZE], ssize_t start, const void *src,  int size);
-void			mem_cpy(unsigned char mem[MEM_SIZE], ssize_t start, const void *dest, int size);
-void			*endian_convert(void *data, unsigned int n);
+void	ft_bzero(void *s, size_t n);
+void	*rv_memcpy(void *destination, const void *source, size_t size);
+int		ft_strcmp(const char *first, const char *second);
+void	*ft_memcpy(void *destination, const void *source, size_t size);
+void	mem_set(unsigned char mem[MEM_SIZE], ssize_t start, const void *src,  int size);
+void	mem_cpy(unsigned char mem[MEM_SIZE], ssize_t start, const void *dest, int size);
+void	*endian_convert(void *data, unsigned int n);
 
 // registries
 void reg_set(unsigned char	reg[REG_NUMBER][REG_SIZE], int r, void *src);

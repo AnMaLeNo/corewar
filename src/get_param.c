@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_param.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amonot <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 15:54:11 by amonot            #+#    #+#             */
-/*   Updated: 2025/11/05 16:27:58 by amonot           ###   ########.fr       */
+/*   Updated: 2025/11/07 00:52:25 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int get_param(unsigned char mem[MEM_SIZE], size_t pc, t_op op, t_params *params)
 	i = 0;
 	size = 0;
 	//acb = mem[(pc + 1) % MEM_SIZE]; // + 1 pour opcode // metre mem cpy !
+	acb = 0; // a sup !?
 	mem_cpy(mem, pc + 1, &acb, 1);
 	if (op.has_pcode)
 		size++;

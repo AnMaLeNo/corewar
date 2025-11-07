@@ -9,7 +9,7 @@ OBJS = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRCS))
 
 # Compilateur et flags
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -I$(INC_DIR)
+CFLAGS = -Wall -Wextra -Werror -g -I $(INC_DIR)
 DEPFLAGS = -MMD -MP
 
 # Nom de l'exécutable

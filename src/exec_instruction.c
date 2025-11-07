@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_instruction.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amonot <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 15:50:30 by amonot            #+#    #+#             */
-/*   Updated: 2025/11/05 14:27:36 by amonot           ###   ########.fr       */
+/*   Updated: 2025/11/07 01:16:46 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ int exec_instruction(unsigned char mem[MEM_SIZE], t_process *process)
 	 	xor(mem, process, *op);
 	else if (ft_strcmp(op->name, "zjmp") == 0)
 		zjmp(mem, process, *op);
+	else if (ft_strcmp(op->name, "ldi") == 0)
+		ldi(mem, process, *op);
 	else
 	{
 		printf("instruction: %s pas fait\n", op->name);

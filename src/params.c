@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   params.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amonot <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 18:02:29 by amonot            #+#    #+#             */
-/*   Updated: 2025/11/03 19:51:38 by amonot           ###   ########.fr       */
+/*   Updated: 2025/11/07 01:33:49 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,10 @@ int	param_sub_val(unsigned char mem[MEM_SIZE], unsigned char reg[REG_NUMBER][REG
 	if (params.types[n] == DIR_CODE)
 		sub_val = p_val;
 	else if (params.types[n] == REG_CODE)
+	{
+		//printf("reg_access: %d\n", p_val);
 		rv_memcpy(&sub_val, reg_access(reg, p_val), 4);
+	}
 	else
 	{
 		mem_cpy(mem, p_val, &tmp, 4);

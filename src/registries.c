@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   registries.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amonot <amonot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amonot <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 17:04:01 by amonot            #+#    #+#             */
-/*   Updated: 2025/11/03 19:31:54 by amonot           ###   ########.fr       */
+/*   Updated: 2025/11/07 01:50:50 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,10 @@ bool is_valid_reg(t_params params, t_op op)
 		if (params.types[i] == REG_CODE)
 		{
 			if (param_val(params, i) < 1 || param_val(params, i) > 16)
+			{
+				printf("Reg non valide: %d\n", param_val(params, i));
 				return (false);
+			}
 		}
 		i++;
 	}

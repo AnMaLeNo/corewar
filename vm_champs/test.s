@@ -29,8 +29,16 @@
 
 
 # test and / or / xor
-add r2, r3, r4
-zjmp %3
-xor %16909060, %928675163, r1
+# add r2, r3, r4
+#zjmp %3
+#xor %16909060, %928675163, r1
 
-st r1, 13
+#st r1, 13
+
+
+# test ldi
+ld %-42, r2
+#ldi %42, %42, r3
+ldi %42, r2, r3
+
+st r3, 10
