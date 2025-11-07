@@ -6,7 +6,7 @@
 /*   By: amonot <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 15:52:18 by amonot            #+#    #+#             */
-/*   Updated: 2025/11/07 02:29:19 by amonot           ###   ########.fr       */
+/*   Updated: 2025/11/07 02:44:44 by amonot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -242,12 +242,14 @@ void ldi(unsigned char mem[MEM_SIZE], t_process *process, t_op op)
 
 	//printf("ldi: pc: %ld", process->pc);
 	
-	print_params(params, 0);
-	print_params(params, 1);
-	print_params(params, 2);
+	//print_params(params, 0);
+	//print_params(params, 1);
+	//print_params(params, 2);
 	if (is_valid_acb(mem, process->pc, op) && is_valid_reg(params, op))
 	{
+		//printf("ici ici ici ici ici ici\n");
 		adresse = param_sub_val(mem, process->reg, params, 0) + param_sub_val(mem, process->reg, params, 1);
+		//printf("adresse: %d\n", adresse);
 		mem_cpy(mem, adresse + process->pc, reg_access(process->reg, param_val(params, 2)), 4);
 	}
 	process->pc += params_size + 1;

@@ -38,7 +38,7 @@
 
 # test ldi
 ld %-42, r2
-#ldi %42, %42, r3
-ldi %42, r2, r3
+ldi r2, %42, r3
+#ldi %42, r2, r3
 
 st r3, 10
